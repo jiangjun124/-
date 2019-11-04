@@ -1,0 +1,784 @@
+﻿复习 vue
+	vue javascript渐进式框架，基于mvvm思想
+1. 模板语法 (template)
+	1) 双大括号
+		一般应用在标签内部
+		{{ message }}
+		{{ message.split("").reverse().join("") }}
+		{{ a+b }}
+	2) 指令
+		一般当做属性来使用
+		v-html
+		v-if v-else-if v-else
+		v-show
+		v-for
+		v-bind	:
+		v-on 		@
+	3) 自定义标签（组件）
+		<el-button></el-button>
+2. vue实例对象
+	每个组件都有一个vue实例对象对应
+	let myInfo = {
+		template:``,
+		data(){
+			return {
+
+			}
+		},
+		props:[]
+	}
+	Vue.component("my-info",myInfo)
+
+	let vm = new Vue({
+		el:'#app',
+		data:{
+
+		}
+	})
+
+	1) vue实例对象可以直接访问data、methods、props、computed、watch所定义的方法或者属性
+	2) methods中的方法或者生命周期钩子函数中this指向当前的vue实例对象
+	3) 生命周期钩子函数
+		构建vue对象
+			beforeCreate
+			created
+		将模板编译成为dom
+			beforeMount
+		将vue对象中的数据，事件处理函数绑定到dom中
+			mounted
+		当vue中的数据发生了变化，dom会响应这种变化
+			beforeUpdate
+			updated
+		销毁
+			beforeDestroy
+			destroyed
+3. 事件机制
+	事件源，事件处理函数，事件对象
+
+	1) 绑定
+		<div @click="handler"></div>
+		methods:{
+			handler(event){}
+		}
+
+		<div @click="handler('a',$event)"></div>
+		methods:{
+			handler(a,event){}
+		}
+
+		div			事件源
+		handler	事件处理函数
+		event		事件对象
+	2) 修饰符
+		1. 事件对象修饰符
+			.prevent、.stop、.once
+		2. 按键修饰符
+			.enter、.esc、.delete
+		3. 系统修饰符
+			.ctrl、.shift、.meta
+
+4. class与style绑定
+	class属性绑定语法
+		<div class="basic"></div>
+		
+		<div :class="basic"></div>
+		data:{
+			basic:"basic"
+		}
+	class属性绑定拓展语法
+		<div :class="{basic:true}"></div>
+		
+		<div :class="[a,b]"></div>
+		data:{
+			a:"basic",
+			b:"current"
+		}
+	style属性绑定语法
+		<div style="color:red"></div>
+
+		<div :style="style"></div>
+		data:{
+			style:"color:red"
+		}
+	style属性绑定拓展语法
+		<div :style="{color:'red'}"></div>
+		<div :style="[{color:'red'},{background:'lightblue'}]"></div>
+
+		<div :style="[a,b]"></div>
+		data{
+			a:{color:'red'},
+			b:{background:'lightblue'}
+		}
+
+5. 组件（基于html）
+	1) 定义
+		let myAlert = {
+			template:`
+				<div class="myAlert">
+					<div></div>
+					<div></div>
+				</div>
+			`,
+			data(){
+				return {
+
+				}
+			},
+			props:[]
+			methods:{
+				handler(){
+					this.$emit()
+				}
+			}
+		}
+	2) 注册
+		局部
+			let vm =new Vue({
+				components:{
+					"my-alert":myAlert,
+					"Customer":Customer
+				}
+			})
+			vm才能使用myAlert
+		全局
+			Vue.component('my-alert',myAlert)
+
+	3) 使用
+		<my-alert></my-alert> 	功能组件（elementui）
+		<Customer></Customer> 	页面组件(程序员编程)
+	4) 组件交互
+		1. 自定义属性
+			父 -> 子
+			父组件
+				<my-Alert :data="[1,2,3]"></my-Alert>
+			子组件
+				let myAlert = {
+					props:["data"],
+					props:{
+						data:{
+							type:Array,
+							required:true
+						}
+					}
+				}
+		2. 自定义事件
+			子 -> 父
+			父组件
+				<my-Alert @foo="handler"></my-Alert>
+			子组件
+				let myAlert = {
+					template:`
+						<div @click="handler">hello</div>
+					`,
+					methods:{
+						handler(){
+							this.$emit("foo")
+						}
+					}
+				}
+		3. 插槽
+			父 -> 子
+			1) 默认插槽：
+				父组件
+					<myAlert>hello</myAlert>
+					<myAlert>
+						<template v-slot:default>
+							hello
+						</template>
+					</myAlert>
+				子组件
+					let myAlert = {
+						template:`
+							<div class="alert">
+								<slot></slot>
+							</div>
+						`
+					}
+			2) 具名插槽
+				父组件
+					<myAlert>
+						<template v-slot:a>
+							hello
+						</template>
+					</myAlert>
+				子组件
+					let myAlert = {
+						template:`
+							<div class="alert">
+								<slot name="a"></slot>
+							</div>
+						`
+					}
+			3) 作用域插槽
+				父组件
+					<myAlert>
+						<template v-slot:a='slot'>
+							hello {{slot.record}}
+						</template>
+					</myAlert>
+				子组件
+					let myAlert = {
+						template:`
+							<div class="alert">
+								<slot name="a" :record="'abc'"></slot>
+							</div>
+						`
+					}
+
+
+
+
+6. 组件（基于node、webpack、@vue/cli）
+	1) 定义
+		Customer.vue
+			template	
+				<template>
+					<div>
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
+				</template>
+			script	
+				export default {
+
+				}
+			style
+				<style scoped>
+					样式不会影响到其他，只在当前模块中有效 	
+					sass/webpack
+				</style>
+	2) 注册
+		动态组件
+		App.vue 根组件
+			<component is="currentPage"></component>
+
+			import Customer from './pages/Customer'
+			export default {
+				data:{
+					currentPage:"Customer"
+				},
+				components:{
+					Customer
+				}
+			}
+
+	3) 使用
+		1. 动态组件
+			注册到App.vue中
+		2. 路由机制
+			注册到路由机制中（vue-router）
+
+7. 表单
+	测试：{{student}}
+	<form @submit.prevent="handler">
+		姓名	<input type="text" v-model="student.username"> <br>
+		密码	<input type="password" v-model="student.password"> <br>
+		性别	
+			<label><input type="radio" value="男" v-model="student.gender"> 男</label>
+			<label><input type="radio" value="女" v-model="student.gender"> 女</label><br>
+		爱好
+			<label><input type="checkbox" value="篮球" v-model="student.hobbies">篮球</label>
+			<label><input type="checkbox" value="足球" v-model="student.hobbies">足球</label>
+			<label><input type="checkbox" value="阅读" v-model="student.hobbies">阅读</label>
+			<br>
+		地址
+			<select v-model="student.address">
+				<option value="江苏">江苏</option>
+				<option value="山西">山西</option>
+				<option value="甘肃">甘肃</option>
+				<option value="广西">广西</option>
+			</select>
+			<br>
+		介绍
+			<textarea cols="30" rows="10" v-model="student.description"></textarea>
+			<br>
+		<input type="submit" value="提交">
+	</form>
+
+	<script>
+		new Vue({
+			el:"#app",
+			data:{
+				student:{
+					username:"jacky2019",
+					gender:"女",
+					hobbies:["足球","阅读"]
+				}
+			},
+			methods:{
+				// 获取表单值
+				handler(){
+					alert(JSON.stringify(this.student));
+				}
+			}
+		})
+	</script>
+
+8. 计算属性
+	与data类似，模板中可以直接访问计算属性中定义的属性
+
+	<p> {{name1}}</p>
+	<p> {{name2()}}</p>
+
+	new Vue({
+		computed:{
+			name1(){
+				return xx;
+			}
+		},
+		methods:{
+			name2(){
+				return xx;
+			}
+		}
+	})
+
+	计算属性相对于方法来说，计算属性会缓存计算后的值，而不是每次调用都会执行计算属性对应的函数。当计算属性中的因变量发生变化的时候，计算属性的值会重新计算
+	<template>
+		<button @click="gender ='male' ">男</button>
+		<button @click="gender ='female' ">女</button>
+		<ul>
+			<li v-for="item in studentsFilter">
+				{{item}}
+			</li>
+		</ul>
+	</template>
+
+	new Vue({
+		el:"#app",
+		data:{
+			students:[
+				{id:1,name:"terry",gender:"male"},
+				{id:1,name:"larry",gender:"male"},
+				{id:1,name:"vicky",gender:"female"},
+				{id:1,name:"lisa",gender:"female"},
+				{id:1,name:"tom",gender:"male"},
+			],
+			gender:"male"
+		},
+		computed:{
+			studentsFilter(){
+				return this.students.filter(s => s.gender===this.gender)
+			}
+		}
+	})
+	当this.students或者this.gender发生变化的时候，计算属性会重新计算产生新的值，然后渲染到页面中
+
+9. 监听器
+	用于监听data中值的变化，如果data中的值为对象，想要监听对象中属性的改变，那么必须deep:true
+
+	new Vue({
+		el:"#app",
+		data:{
+			params:{}
+		},
+		watch:{
+			"params":{
+				handler:function(){
+					console.log("==="+Math.random());
+				},
+				deep:true
+			}
+		}
+	})
+
+
+10. vue脚手架
+	在windows中安装node，安装cnpm，安装yarn，安装vue/cli
+		1) 安装node
+			无脑安装
+			> node -v
+
+		2) 安装@vue/cli
+			> npm install @vue/cli -g
+			> vue --version
+
+	在windows中使用vue/cli创建项目
+		> vue create app01
+			自定义配置
+			babel 
+			package.json
+			n
+
+			当前目录下产生一个文件app01
+
+		> cd app01
+		> npm install axios qs --save
+		> vue add element	
+			// 使用插件安装element
+		> npm run start
+			依赖安装
+
+			加入报错：
+				模块找不到。 删除node_modules。重新执行 >npm install
+
+	在windows中通过sublime打开创建的项目进行编程
+
+	在windows中对项目进行打包构建，然后部署到linux上
+
+
+	app01
+		src
+		package.json
+		..
+
+	> cd app01
+	> npm install
+		项目迁移的时候傻子才会拷贝node_modules，因为太大了，东西太多了，并且拷贝给别人没有任何用户，别人还会删掉。
+		
+		依赖信息记录在package.json ，npm命令会读取package.json，然后将dependecies,devDependecies...这里的依赖保存完全。
+
+		所以我们不管是从别人那里拷贝的代码还是从github中下载的代码，拿到手第一时刻要先进入到项目中，然后执行 npm install。这时候就会将项目所需要的依赖安装好
+
+11. 使用vue add element命令安装element
+	安装成功后，将修改如下文件
+		src/element-variables.scss
+			可以用来修改element风格
+		src/plugins/element.js
+			element.js的配置文件，将element中的所有组件导入到项目中
+   	package.json
+   		修改了dependencies elementui
+   	src/App.vue
+   		添加了一行代码，用于测试element是否集成成功
+   		<el-button>el-button</el-button>
+   	src/main.js
+   		在入口文件中引用element.js
+   	yarn.lock
+
+
+
+12. vuex（redux）
+	1) 介绍
+		Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。
+
+		原先数据需要保存到各自vue实例对象的data中，当使用vuex之后，就可以将data中的数据集中管理到vuex中。
+	2) 核心概念
+		state 		状态 （data）
+		getters 	获取器(computed)
+		mutation 	突变（修改data值的唯一方式！）
+		action 		动作(封装异步代码，然后提交突变，进而修改state值)
+
+	3) 使用方式
+		1.  实例化
+			let store = new Vuex.Store({
+				state:{
+					customers:[]
+				},
+				getters:{
+
+				},
+				mutations:{
+					refreshCustomers(state,customers){
+
+					}
+				},
+				actions:{
+
+				}
+			})
+		2. 集成到vue中
+			new Vue({
+				el:'',
+				data:{},
+				store
+			})
+		3. 调用
+			this.$store
+
+	4. mutation
+		1) 作用：
+			突变，用于修改state的唯一方式，并且其中只能包含同步操作。
+		2) 定义：
+			mutations:{
+				refresh(state,customers){
+					state由vuex提供，customers是程序在提交mutation传递的参数
+				}
+			}
+		3) 调用
+			不能直接调用，必须通过store.commit方法来调用
+			store.commit(mutationName,payload)
+			payload 被称为载荷，实际就是传递给mutation的实参
+		4) 辅助函数
+			Vuex.mapMutations(["findAll","deleteById"])
+			或
+			Vuex.mapMutations({
+				findAllCustomer:"findAll"
+			}])
+
+	5. action
+		1) 作用：
+			动作，用于封装异步操作（异步操作的同步化），不能直接修改state,但是可以通过提交突变，间接修改state的值
+		2) 定义：
+			actions:{
+				async findAllCustomers(context,id){
+					context是vuex提供的，与store对象类似，可以直接访问commit、dispatch、getters、state,这个我们可以使用解构形式获取context中的属性。id为该action第一个形参（载荷）
+
+					let response = axios.get("");
+
+					return response;
+				}
+			}
+		3) 映射辅助函数
+			Vuex.mapActions(["",""])
+			Vuex.mapActions({
+				xxx:"xxx"
+			})
+	6. 获取器（过滤）
+		this.$store.state.customers
+
+		1) 作用
+			需要对state中的值经过一个计算，然后渲染到页面中的时候可以使用getters
+				例如：你在state中维护了一个购物车信息，但是你想在页面中显示购物车中产品价格的总额。类似于计算属性
+		2) 定义
+			1. 使用属性调用
+				getters:{
+					customerSize(state){
+						return state.customers.length
+					}
+				}
+				this.$store.getters.customerSize
+
+			2. 使用方法调用
+				getters :{
+					customerFilter(state){
+						return (param){
+							return xxx
+						}
+					}
+				}
+				this.$store.getters.customerFilter(xx)
+		3) 辅助函数
+			Vuex.mapGetters([""])
+
+	7. 脚手架（模块化）
+		store - 顾客信息、栏目、产品、订单、...
+
+		customerStore
+			state,getters,mutations,actions,namespaced:true
+		categoryStore 									->	store 	-> Vue
+			state,getters,mutations,actions
+		productStore
+			state,getters,mutations,actions
+		orderStore
+			state,getters,mutations,actions
+
+		Customer.vue
+		Category.vue 		-> App.vue
+		Product.vue
+
+13. 路由机制 vueRouter
+
+	vue 	vue实例对象 	----> 模板
+	vuex 	状态管理
+				data状态 -> 集中交给vuex维护状态
+	vueRouter 	路由管理
+				路径				---> 		组件
+				/ 					-> 		Home.vue
+				/customer 	-> 		Customer.vue
+				/Category 	-> 		Category.vue
+
+
+	1) 安装
+		1. script	
+		2. cnpm install vue-router --save
+	2) 实例化vueRouter实例对象
+		import Home from './pages/Home.vue'
+		let router = new VueRouter({
+			routes:[{
+				path:"/",
+				name:"home",
+				component:Home
+			},{
+				path:"/category",
+				component:Category
+			},{
+				path:"/custoemr",
+				component:Custoemr
+			}]
+		})
+	3) 集成到vue中
+		Vue.use(VueRouter)
+
+		new Vue({
+			store,
+			router
+		})
+	4) 使用：
+		将组件渲染到哪里？
+			一般渲染到根组件的router-view标签
+			当路由改变，找到对应的组件，将该组件设置到router-view
+
+				App.vue 
+				<div id="app">
+					<div class="header"></div>
+					<div class="nav"></div>
+					<div class="content">
+						<router-view></router-view>
+					</div>
+				</div>
+
+			router-link可以渲染为一个超链接，用户点击后修改浏url地址
+	5) 编程式导航
+
+		router.push("/")
+		=>
+		router.push({path:'/'})
+		=>
+		router.push({name:"home"})
+
+		传递参数
+		router.push({path:"/",params:{},query:{}})
+
+
+
+
+
+
+
+
+
+
+
+-----------作业------------
+html页面中完成。
+1. 使用两种方式vue / vue+vuex完成备忘录信息的管理
+2. 使用 vue + vuex + axios 完成顾客信息的管理
+
+----------
+1. 分页查询栏目，产品
+2. 状态机vuex完成顾客增删改查
+
+
+
+练手(下周一之前)：
+1. 分组协作
+2. 组长架构 
+	web端（vue + vuex + vueRouter + axios + qs + 【elementui】）
+	手机端（vue + vuex + vueRouter + axios + qs + 【vant】）
+	ej.jar ej.sql 	=> 服务器
+4. 提交到github （设置合作者）
+5. 组员clone项目
+6. 分工开发
+	家政服务
+
+答辩！
+
+--------------------------------------------
+	报错！
+		.page/Customer 	模块找不到
+		1) 我写的，地址写错了！
+		node-scss 	模块找不到
+		2) 不是你写的
+			node_modules
+			删除node_modules,重新安装, 
+	vscode中无法执行cnpm命令
+		1) 测试 dos ,如果dos中可以执行，不允许vscode调用终端
+		2) 如果dos不可以执行，重新安装cnpm
+
+
+------------------面试------------------
+	es6, Promise,async,iterator,类,结构，拓展运算符，对象克隆，lodash.js
+
+		let obj = {
+			...{
+				name:"terry"
+			},
+			...{
+				age:12
+			}
+		}
+		obj = {
+			name:"terry",
+			age:12
+		}
+
+
+
+
+	promise
+		axios.get("").then((response)=>{})
+	async
+		如何将异步操作同步化
+		async function foo(){
+			let response = await axios.get("")
+			console.log(response);
+			return "hello"
+		}
+		let promise = foo();
+		promise.then((result)=>{
+			result 就为hello
+		})
+
+	浏览器中哪种机制可以缓存网页数据
+		sessionStorage 	会话存储
+			存储在浏览器中
+			如果切换选项卡，这个值无法获取
+			如果关闭浏览器，session中值会被销毁
+		localStorage 		本地存储
+			存储在浏览器
+			如果切换选项卡，这个值可以获取
+			如果关闭浏览器，local中值不会被销毁
+
+	require / import
+
+	export default、export
+		单个导出
+			export 声明
+			导入的时候必须通过解构的形式导入
+			在一个模块中允许多次单个导出
+		默认导出
+			export default 值
+			导入的时候可以通过任意变量来获取
+			正在一个模块中只允许默认导出一次
+
+
+	基本数据类型
+		值保存在栈区
+	引用数据类型
+		值保持在堆，栈区保存的是引用地址
+
+		let a = 3;
+		b = a;
+		b++;
+
+		let a = {num:1}
+		b = a;
+		b.num++;
+
+	html如何应用样式
+		<div style=""></div>
+		<head>
+			<style></style>
+		</head>
+		<head>
+			<link rel="stylesheet" href="">
+		</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

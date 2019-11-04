@@ -1,0 +1,1091 @@
+HTML5
+	在2004年，由一些著名的组织和个人构成了一个标准化机构，成为Web超文本应用技术工作组(Web Hypertext Application Technology Working Group WHATWG) 网址为www.whatwg.org，该组织的目标是产生一个HTML的新版本（可能由于XHTML难理解，或者是对Web标准执行慢而感到挫折，或者想创新），他们希望这个版本能为Web应用程序创建一个新的，丰富的，基于HTML的语言。由于一些新规范（canvas等）已经出现在一些浏览器(safari firefox)中，因此在2008年，这个机构努力的结果被W3C认可，并制定了草案。目前很多浏览器厂商和市场都开始承认HTML5,并且Google在很多地方都使用了HTML5，说明它的未来是光明的。
+
+	HTML5规范不仅支持先前HTML和XHTML的语法，而且增加了新的功能，虽然与HTML4相比HTML5是一种进步，但它同样也是一个妥协，HTML5的设计者明白一个现实，就是大多数WEB开发人员因为没有经过正规的技术训练，虽然要求他们写出规范的标记代码是徒劳的。
+
+	虽然对Web文档制作者而言，关于遵循HTML5浏览器语法分析器的应用讨论无法让他们产生兴趣，但是现在浏览器开发人员拥有一个共同的规范借以遵循，用于确定浏览器在遇到标签不嵌套，没有结束标记或者以不同的方式混杂时应该如何处理，这种功能是HTML5规范期望产生最好的结果的部分，是因为让浏览器供应商在处理标记问题上达成持久的共识比定义一些严格的语法然后让世界各地的web制作者都来比那些好的标记更能促进Web的发展。 力求使标记编写更有秩序只是H5规范的宏伟目标中的一个，它还期望以向后兼容的方式取代传统的HTML,XHTML,DOM规范。在这一目标的驱使下，当H5规范扩展时，它不仅会说明有哪些元素，并且会阐明如何在HTMLL中一个在脚本程序中使用这种元素。
+
+发展历史：
+超文本标记语言（第一版）——在1993年6月作为互联网工程工作小组（IETF）工作草案发布（并非标准）：
+HTML 2.0——1995年11月作为RFC 1866发布，在RFC 2854于2000年6月发布之后被宣布已经过时
+HTML 3.2——1997年1月14日，W3C推荐标准
+HTML 4.0——1997年12月18日，W3C推荐标准
+HTML 4.01（微小改进）——1999年12月24日，W3C推荐标准
+HTML 5——2014年10月28日，W3C推荐标准[4]  （详见本处参考资料）
+ISO/IEC 15445:2000（“ISO HTML”）——2000年5月15日发布，基于严格的HTML 4.01语法，是国际标准化组织和国际电工委员会的标准。	
+
+	HTML5要解决的三个问题
+		1. Web浏览器之间的兼容性很低
+			H5的使命是详细分析各Web浏览器所具有的功能，然后以此为基础，要求这些浏览器所有内部功能都要符合一个通用标准。如果各浏览器都符合通用标准，然后以该标准为基础书写程序，那么程序在各个浏览器都能正常运行的可能性就大大提高。
+
+		2. 文档结构不够明确
+			H5中添加了很多跟结构相关的元素，例如header,footer,section,article
+
+		3. Web应用程序功能受到限制
+			H5提供了各种各样Web应用上的新API，各个浏览器也在快速地封装着这些API。H5已经使富Web应用的实现变成了可能。
+前景：
+	1.移动端页面（手机）
+	2.游戏开发
+	3.绚丽特效页面制作（兼容性差）JS
+
+相对于HTML4.01改变：
+	1.将HTML4中不常用的标签删除
+	2.将一些HTML4中的元素标签简化（对标记进行省略）
+	<ul>
+		<li>小明
+		<li>小红
+	</ul>
+	html本身是一个不是很严谨的语言
+	xml可拓展性标记语言（w3c组织）很严谨的语言
+	3.添加一些非常实用的新标签（比如说音乐、视频播放器等）
+
+注意：许多浏览器并还不支持这些新添加的标签（如IE8以下），
+如果希望能够让低版本浏览器也使用HTML5，那么需要下载
+html5.js文件(支持的不完整)
+<!-[if lt IE9]>
+	<script src="html5.js"></script>
+<![endif]->	
+
+IEtest软件：
+	作用：测试制作的网页在IE各个版本中是否兼容
+
+
+语法的改变：
+	1.DTD文件
+		<!DOCTYPE html>
+
+		<!DOCTYPE>与之前的HTML4有很大区别，原因是HTML5并不是定义为SGML或者XML的应用程序，在HTML5中不存在有效性检查，取而代之的是根据规范来了检查规范的一致性（让浏览器按照它们应该的方式来运行）。HTML4.01中的doctype需要对DTD进行引用，因为HTML4.01基于SGML。
+
+		HTML的语法是基于SGML(Standard Generalized Markup Language)标准通用标记语言的基础上建立起来的。由于SGML语法非常复杂，很多浏览器都不包含SGML的分析器，因此虽然HTML基本上遵从SGML语法，但是对于HTML的执行在各浏览器之间并没有统一的标准，所以浏览器本身是存在缺陷的。为了保证兼容性，H5围绕着Web标准重新定义了一套在现有HTML的基础上修改而来的语法，使它在各浏览器运行时都能符合这个标准。
+	2.字符编码
+		<meta charset="utf-8" />
+		
+
+	3.可以省略结束标记的标签
+		<li>内容</li>
+		li、dt、dd、p、option、thead、thead、
+		tr、td、th、rt、rp、optgroup、colgroup、tfoot
+	4.可以省略不写的标签
+		html、head、body、colgroup、tbody
+
+
+
+其他新添元素
+		带标题的组合元素<figure><figcaption>
+		强调标签<mark>
+		软换行<wbr> 对中文无效，仅当浏览器不够显示内容时生效
+		进度条<progress min="0" max="100" value=""  >
+		进度条<meter  min="0" max="100" value="" >
+			属性（度量）：low最低 high最高 optimun最优
+		画图<canvas> 实例：时钟
+		细节信息<details>
+			配合<summary>标题
+		注音注释<ruby>
+			配合<rt>
+	
+
+删除的标签：
+	<font>		<center>	<basefont>	<big>
+	<s>		<strike>	<tt>		<u>
+	<bgsound>	<marquee>	<applet>	<rb>
+	<acronym>	<dir>		<isiindex>	<xmp>
+	<nextid>	<plaintext>
+	HTML5以后也不再支持框架了
+		
+新添加的其他属性
+		在<ol>中添加了reversed属性，指定列表倒序显示
+		为<style>元素新添属性scoped,使这个style局部有效（火狐有效）
+		为<script>元素添加属性async，使js代码异步传输
+		注意：async只有使用src引入文件时有效
+
+		全局属性（所有标签有效）：
+			contentEditable是否可以编辑
+			hidden隐藏元素
+			spellcheck拼写检查（false/true）
+
+新增加的语义标签：
+	语义标签：简单来说就是命名有意义的标签块（DIV）
+	<nav>网站导航块
+	nav元素是一个可以用作页面导航的链接组，其中导航元素链接到其他页面或当前页面的其他部分。
+		nav使用的场合：
+			传统导航条	
+			侧边栏导航
+			页内导航
+			翻页操作
+		<nav><ul><li></ul></nav>
+	<section>表示页面中的一个内容块
+		<section><div>content</div><article></article></section>
+		用于对网站或应用程序中页面上的内容进行分块。一个section元素通常由内容及标题组成，但section并非是一个普通的容器元素，一个容器需要被直接定义样式或通过脚本定义行为时，推荐使用div。我们可以这样理解，section中的内容可以单独存储到数据库中或输入到word文档中。通常不推荐为那些没有标题的内容使用section元素。
+
+		section元素的作用是对页面上的内容进行分块，或者对文章进行分段。不要与article元素混淆。article元素可以看做是一种特殊种类的section元素，比section元素更强调独立性。
+
+		section元素的禁忌
+			1. 不要将section元素用作设置样式的页面容器，那是div元素的工作。
+			2. 如果article,aside,nav元素更符合使用条件，不要使用section
+			3. 不要为没有标题的内容区块使用section元素。
+			<article>
+				<h1>WebUI课程</h1>
+				<p>WebUI致力于前端开发</p>
+				<section>
+					<h2>HTML</h2>
+					<p>用于页面结构</p>
+				</section>
+				<section>
+					<h2>CSS</h2>
+					<p>用于页面样式</p>
+				</section>
+			</article>
+	<article>表示页面中的一块与上下文不相关的内容块
+	article元素代表文档，页面或应用程序中独立的，完整的，可以独自被外部引用的内容，可以是一篇博客或者报刊中的文章，一篇论坛帖子，一段用户评论或者独立的插件，或其他任和独立的内容。
+		<article>
+			<header>
+				<h1>苹果</h1>
+				<p>发布日期：<time pubdate="pubdate">2010/10/09</time></p>
+			</header>
+			<p><b>苹果</b>植物类水果，多次花果.....</p>
+			<footer>
+				<p><small>著作版权</small></p>
+			</footer>
+		</article>
+
+	aside元素
+		aside元素用来表示当前页面或文章的附属信息部分，它可以包含当前页面或主要内容相关的引用，侧边栏，广告，导航条，以及其他类型的有别于主要内容的部分。
+		aside元素主要有以下两种使用方法：
+			1)被包含在article元素中作为主要内容的附属信息部分，其中的内容可以是与当前文章有关的参考资料，名词解释等。
+
+			2)在article元素之外使用，作为页面或站点全局的附属信息部分。典型的形式是侧边栏，其中的内容可以是友情链接，博客中其他
+	<header>表示页面中一个标题区域
+		<div id="head"></div>
+		<header><img /><hgroup></hgroup></header>
+	<hgroup>用于页面中与标题区域组合
+	<footer>底部标签
+	<figure>一段独立的流内容
+		<figure>
+			<h1></h1>
+			<p></p>
+		</figure>
+	address
+		用来在文档中呈现联系信息，包括文档作者或文档维护者名字，他们的网站链接，电子邮箱，真实地址，电话号码，以及跟文档相关的联系人的所有联系信息。
+
+
+
+HTML5结构
+	https://gsnedders.html5.org/outliner/
+	文档大纲分析器
+		
+	1) 大纲的编排规则
+		1. 显示编排
+			指明确使用section等元素创建文档结构，在每个内容区块内使用标题(h1~h6,hgroup等)
+			<section>
+				<h2>标题</h2>
+				<p>内容</p>
+			</section>
+		2. 隐式编排
+			不明确使用section等元素，而是根据页面中所书写的各级标题(h1~h6,hgroup等)把各级内容区块自动创建出来。因为HTML5分析器只看到书写了某个级别的标题，就会判断存在相对应的内容区块
+			<h1>网页级内容区块标题</h1>
+			<p>网页级内容区块正文</p>
+			<h2>section级内容区块标题</h2>
+			<p>section级内容区块正文</p>
+
+		3. 标题分级
+			h1~h6,h1最高，h6最低
+			如果新出现的标题比上一个标题级别低，将生成下级内容区块
+			如果新出现的标题比上一个标题级别高，或者两者级别相等，将生成新的内容区块。
+			<section>
+				<h2>section级内容区块标题</h2>
+				<p>section级内容区块正文</p>
+			</section>
+			<section>
+				<h1>新的section级别的内容区块标题</h1>
+				<p>新的section级别的内容区块正文</p>
+			</section>
+		4. 不同的内容区块可以使用相同级别的标题
+			<body>
+				<h1>网页标题</h1>
+				<article>
+					<header>
+						<hgroup>
+							<h1>文章标题</h1>
+							<p>正文</p>
+						</hgroup>
+					</header>
+				</article>
+			</body>
+		5. 网页编排示例
+			<html>
+			<head>
+				
+			</head>
+			<body>
+				<header>
+					<h1>网页标题</h1>		
+					<nav>
+						<ul>
+							<li><a href="">首页</a></li>
+							<li><a href="">首页</a></li>
+						</ul>
+					</nav>
+				</header>
+				<article>
+					<hgroup>
+						<h1>文章主标题</h1>
+						<h2>文章子标题</h2>
+					</hgroup>
+					<p>文章正文</p>
+					<!--文章评论-->
+					<section>
+						<article>
+							<h1>评论标题</h1>
+							<p>评论正文</p>
+						</article>
+					</section>
+				</article>
+				<footer>
+					<small>版权所有</small>
+				</footer>
+			</body>
+			</html>
+
+	2) 对新的结构元素使用样式
+		因为很多浏览器尚未对HTML5新增的元素提供支持，我们无法知道客户端使用的浏览器是否支持这些元素，所以需要使用CSS追加如下声明，目的是通知浏览器页面中使用的HTML5中心增加的元素都是以块方式显示的。
+
+		article,aside,dialog,figure,footer,header,legend,nav,section{
+			display:block;
+		}
+
+
+
+
+
+HTML5对表单：
+	属性
+		1.表单内元素的form属性
+			在H5中，可以将表单内的从属元素书写在页面上的任何地方，然后为该元素指定一个form属性，属性值为该表单的id。
+			<form id="testForm">
+				<input type="text">
+			</form>
+			<textarea form="testForm"></textarea>
+
+		2. formaction属性
+			在H5中，可以为所有的提交按钮，诸如<input type="submit"> <input type="image"> <button type="submit">等增加不同的formaction属性，使单击不同的按钮时可以将表单提交到不同的页面。
+			<form>
+				<input type="submit" name="" formaction="a.action">
+				<input type="submit" name="" formaction="b.action">
+				<input type="submit" name="" formaction="c.action">
+			</form>
+		3. formmethod
+			在H5中，可以使用formmethod属性为每个form表单元素分别指定不同的提交方法
+			<form>
+				<input type="text" name="name">
+				<input type="submit" name="" formmethod="post">
+				<input type="submit" name="" formmethod="get">
+			</form>	
+		4. formenctype
+			在H5中，可以使用该属性对表单元素分别指定不同的编码方式
+			<form>
+				<input type="submit" formaction="a.action" formenctype="multipart/form-data">
+			</form>
+			application/x-www-form-urlencoded
+			multipart/form-data	不进行编码，使用包含文件上传控件表单时，必须使用该值
+			text/plain 			表单数据中的空格被转换为"+"但不对表单数据特殊字符进行编码
+
+		5. formtarget属性
+			在H5中，可以对多个提交按钮分别使用formtarget属性来指定提交后在何处打开所需要加载的页面。
+				_blank		在新的浏览器窗口中打开
+				_self		默认值，当前窗口中打开
+				_parent		父框架中打开
+				_top		当前浏览器窗口中打开
+				framename	指定框架中打开
+
+		7. required属性
+			在H5中，该元素可以应用在大多数元素上，在提交时，如果元素中内容为空白，则不允许提交，同时在浏览器中显示信息提示文字，提示用户必须输入内容。	
+		
+		8. control属性
+			在H5中，可以在标签（label元素）内部放置一个表单元素，并且通过该标签的control属性来访问该表单元素。
+			<label for="oneIP" id="one">oneIp:</label>
+		    <input type="text" id="oneIP">
+		    <script>
+		        var one = document.getElementById("one");
+		        one.control.value = "hello";
+		    </script>
+
+		placeholder文本提示
+		
+		autofocus获取焦点
+
+		autocomplete控件是否有提示（off/on）,不能关闭list
+
+		list设置提示值(获取datalist的ID)
+			配合<datalist>使用
+			<datalist id="">
+				<option></option>
+			</datalist>
+		请选择你喜欢的颜色：
+
+		文本框的pattern属性
+			将pattern属性值设为某个格式的正则表达式，在提交时会对这些进行检查，检查其内容是否符合给定格式。当输入的内容不符合给定格式时，则不允许提交，同时在浏览器中显示信息提示文字，提示输入的内容必须符合给定格式。
+
+	新增表单元素
+		output元素
+			output元素定义不同类型的输出，比如计算结构或脚本的输出，output元素必须从属于某个表单。
+			通过js来实现输出
+	<form oninput="x.value=parseInt(a.value)+parseInt(b.value)">0
+		<input type="range" id="a" value="50">100
+		+<input type="number" id="b" value="50">
+		=<output name="x" for="a b"></output>
+	</form>
+
+
+
+
+
+	input
+		如果浏览器不支持新的控件类型，那么会以text去处理这个控件。
+
+		search控件
+		如果浏览器不支持的话，可以通过CSS样式控制一下外观：
+		input[type="search"]{
+		-webkit-appearance:textfield;}
+
+		tel控件(电话号码控件)
+		注意：tel控件本身没有没有约束
+		可以通过pattern属性来约束tel控件的值
+			pattetn属性中可以写正则表达式
+				如判断11位数字：/^\d{11}$/
+			\d:匹配一个数字数字
+			\w:匹配任何一个数字或者字母或_
+			\S:匹配任何一个非空白字符
+
+			
+
+		url控件（网址）
+			http://www.briup.com
+			以http://开始
+		email控件
+		值可以为空，如果一定要有值的话（非空），添加属性required
+			required属性其他控件也可以使用。
+		required="required"
+		
+		时间控件：
+			datetime	日期格式检查控件	（还不能被支持，
+					正则 ****-**-**or****/**/**）
+			date		日期控件
+			month		月份控件
+			week		周控控件
+			time		时间控件
+			datetime-local	日期加时间控件
+		
+		number控件
+			属性：min最小值	max最大值 step倍数
+
+		range控件（滑块控件）
+			属性：min最小值	max最大值 step倍数
+			value 默认值
+			onchange="document.getElementById('num').value=this.value"
+			配合<output>元素使用				
+			<output id="num">50</ouput>
+
+		color控件（颜色选择器）//替换网站背景或者主题
+
+		file控件（文件预览）
+			新添属性：
+				multiple可以选择多个文件
+				accept指定文件类型（如只能选择图片image/*）
+			var fileReader=new FileReader();
+			FileReader()接口：读取文件
+			常用方法：
+				readAstext(file);//读取文档文件（txt）
+				readAsBinaryString(file);//读取一个文件的二进制流，图片
+				readAsDataURL(file)//读取文件的路径
+		
+
+
+
+
+
+		取消表单验证：novalidate  对于form标签
+		取消单个表单控件的验证：formnovalidate配合submit按钮
+		注意：这个属性只有提交按钮可以使用
+		<input type="submit" formnovalidate />
+		<input type="submit" />
+
+
+
+
+
+
+
+
+
+
+
+拖放操作
+	在HTML4.01中超链接和图片默认可以被拖动
+	第一步：设置可拖放属性draggable为true
+	第二部：根据需求选择拖放的事件进行处理（与click、change等事件用法相同）
+		新添事件
+			dragstart:开始拖放
+			drag:拖放中
+			dragenter:拖放中进入本元素
+			dragover:拖放中再本元素移动
+			dragleave:拖放中离开本元素
+			drop:放开移动元素
+				document.ondragend =function(e){e.preventDefault();}
+				document.ondragover =function(e){e.preventDefault();}
+			dragend:拖放结束
+
+		事件数据处理对象:dataTransfer
+
+		dataTransfer对象有两个主要的方法：getData()方法和setData()方法。从这两个方法的英文字面意思上就能大概猜出来其用途。getData()方法可以取得由setData()方法保存的值。setData()方法的第一个参数，也是getData()方法唯一的一个参数，是用来保存数据类型的字符串，取值是”text”或”URL”。
+
+　　		IE只定义了”text”或”URL”两种有效的数据类型，而HTML5则对此加以扩展，允许指定各种MIME类型。考虑到向后兼容，HTML5也支持”text”或”URL”，但这两种类型会被映射为”text/plain”或”text/url-list”。
+			属性：
+			effectAllowed  控制特效
+			effectAllowed属性表示允许拖动元素的哪种行为(dropEffect)。effectAllowed属性也有很多值，其值如下：
+
+　　				uninitialized：没有给被拖动元素设置任何放置行为。
+
+　　				none：被拖动的元素不能有任何行为。
+
+　　				copy：只允许值为”copy”的dropEffect。
+
+　　				link：只允许值为”link”的dropEffect。
+
+　　				move：只允许值为”move”的dropEffect。
+
+　　				copyLink：允许值为”copy”和”link”的dropEffect。
+
+　　				copyMove：允许值为”copy”和”move”的dropEffect。
+
+　　				linkMove：允许值为”link”和”move”的dropEffect。
+
+　　				all：允许任意dropEffect。
+			dropEffect     控制特效
+			其中，通过dropEffect属性可以知道被拖动的元素（目标）能够执行哪种行为。这个属性的四个值如下：
+
+　　				none：不能把拖动的元素放在这里。这是除了文本框之外所有元素默认的值。
+
+　　				move：应该把拖动的元素移动到放置目标。
+
+　　				copy：应该把拖动的元素复制到放置目标。
+
+　　				link：放置目标会打开拖动的元素(但拖动的元素必须是个链接，有URL地址)。
+
+　　				把元素拖动到放置目标上的时候，以上每一个值都会导致光标显示为不同的符号。
+			
+
+			setData(mime_type,data);存储数据
+			getdata(mime_type);取出数据
+			支持的mime类型：text/plain text/html text/xml text/url-list
+
+		事件对象方法：
+			preventDefault();不执行默认处理（默认拒绝被拖放）
+			stopPropagation();停止事件传播
+
+			
+		
+
+
+
+
+
+多媒体播放：
+	注意：需要使用流媒体文件格式（如mp4、webm、ogg等）
+在HTML5问世之前，要在网络上展示视频，音频，动画，除了使用第三方自主开发的播放器之外，使用得最多的工具就是Flash,但是需要在浏览器上安装各种插件，并且有时速度很慢。HTML5新增了两个与媒体相关的标签，让开发人员不必依赖任何插件就能在网页中嵌入跨浏览器的音频和视频内容，这两个标签是 <audio> <video>
+1. 嵌入视/音频：
+	<video src="" id="" width="640" height="360">视频播放器无法使用</video>
+	<audio src="" id="">音频播放器无法使用</audio>
+	标签之间的元素表示后备内容，在浏览器不支持这两个媒体元素的情况下显示。
+
+2. source,指定不同媒体来源
+	并不是所有的浏览器都支持所有媒体格式，可以指定多个不同的媒体来源。由于不同的浏览器支持不同的编解码器，一般要指定多种格式的媒体来源。
+		src 	指播放媒体的URL地址
+		type 	媒体类型，属性值为播放文件的MIME类型，该属性值中的codes参数表示所使用的媒体的编码格式。     
+
+
+		<video id="video_1">
+			<source src="sample.ogv" type="video/ogg">
+			<source src="sample.mov" type="video/quicktime">
+			视频播放器无法使用
+		</video>
+
+		<audio id="audio_1">
+			<source src="" type="">
+			<source src="" type="">
+			音频播放器无法使用
+		</audio>
+
+		
+	属性：
+		src:播放文件的路径
+		width,height:播放控件的宽度和高度
+		controls:默认播放控制条是否显示
+		autoplay:自动播放
+		preload:预加载（缓冲）
+			auto - 当页面加载后载入整个视频
+			meta - 当页面加载后只载入元数据
+			none - 当页面加载后不载入视频
+		poster:视频预览图（视频不用或者不可用时）
+		loop:循环播放
+		currentTime:当前播放位置  00:00/30:00
+		duration:文件总的播放
+		palyed:是否播放中
+		paused:是否暂停
+		ended:是否播放完毕
+		defaultPlaybackRate:播放速度
+		playbackRate:设置播放速度 1
+		volume:音量 0-1
+		muted:静音  ture/false
+	方法：
+		play();播放
+		pause();暂停 
+			
+	
+视频格式
+	视频格式与浏览器的支持当前， <video> 元素支持三种视频格式： MP4, WebM, 和 Ogg:
+	浏览器 		MP4 		WebM 	Ogg
+	Internet 	Explorer 	YES 	NO 
+	Chrome 		YES 		YES 	YES
+	Firefox 	YES 		YES 	YES
+	Safari 		YES 		NO 		NO
+	Opera 		YES 	 	YES 	YES
+
+    MP4，带有 H.264 视频编码和 AAC 音频编码的 MPEG 4 文件
+    WebM，带有 VP8 视频编码和 Vorbis 音频编码的 WebM 文件
+    Ogg，带有 Theora 视频编码和 Vorbis 音频编码的 Ogg 文件
+
+    视频格式
+		格式 	MIME-type
+		MP4 	video/mp4
+		WebM 	video/webm
+		Ogg 	video/ogg
+
+
+自定义媒体播放器
+	btn.onclick = function(){
+		if(player.paused){
+			player.play();
+			this.value = "暂停";
+		}else{
+			player.pause();
+			this.value = "播放";
+		}
+	};
+	//实时更新当前播放时间
+	setInterval(function(){
+		curtime.innerHTML = player.currentTime;
+	},250);
+
+	<div class="mediaplayer">
+		<div class="video">
+			<video id="player"  width="400" height="300">
+				<source src="../../video/html5.mp4" type="video/mp4">
+			</video>
+		</div>
+		<div class="controls">
+			<input type="button" id="video-btn" value="播放"/>
+			当前时间：<span id="curtime">0</span>
+			总时长：<span id="duration">0</span>
+		</div>
+	</div>
+	如果想在一段音乐播放后再播放另一段音频，必须在onfinish事件处理函数中调用play()方法
+
+
+
+
+
+
+
+
+
+HTML5高级应用：
+	绘制图形、本地存储、离线应用程序、通信API、处理线程、
+	获取地理位置、视频音频等等。
+
+
+canvas元素
+	目标：熟悉绘制图形和图像
+	
+	canvas元素
+		属性 width height
+		兼容性元素内容
+	canvas配套API
+		获取canvas元素
+		var Mycanvas = document.getElementById('Mycanvas');
+		获取canvas元素操作上下文getContext对象
+		var c = Mycanvas.getContext("2d");
+	用实例学习canvas的基本使用
+		开始绘制：beginPath();
+		结束绘制：closePath();//闭合路径
+		清除画布：clearRect(x,y,width,height);
+				(0,70,180,50)
+		1.绘制线段
+			涉及属性：
+				strokeStyle线条颜色
+				lineWidth线条粗细
+			设计方法：
+				moveTo(x,y)
+				lineTo(x,y)
+				stroke()//绘制动作
+		2.绘制矩形
+			涉及属性：
+				fillStyle
+			涉及方法
+				fillRect(x,y,width,height)实心矩形
+				strokeRect(x,y,width,height)空心矩形
+				fill();
+		3.绘制圆形
+			涉及方法：
+				arc(x,y,r,beginAngle,endAngle,anticlockwise)
+				圆心、半径、弧度、顺逆时针。
+	 			0*Math.PI/180,180*Math.PI/180
+				stroke()空心圆
+				fill()实心圆			
+		4.绘制文字
+			涉及属性：
+				font("style(italic/bold),size,type")   context.font="50px Arial"
+			涉及方法：
+				strokeText(str,x,y);空心字
+				fillText(str,x,y);实心字
+		5.图像翻转
+			设计方法：
+				save();//产生一个与原图相同的一个异次元空间
+				translate(x,y);设置旋转点
+				rotate(angle);设置弧度
+				restore();//把旋转后的异次元空间映入原图
+		6.绘制渐变图形
+			涉及方法：
+				
+				var color = c.createLinearGradient(0,0,0,500);//创建渐变
+				color.addColorStop(0,"blue");
+				color.addColorStop(1,"yellow");//追加颜色
+				c.fillStyle=color;
+				c.fillRect(0,0,500,500);
+		
+		7.canvas存储
+			设计属性：
+				window.location=Mycanvas.toDataURL("image/png").replace("image/png","image/octet-stream");
+
+
+离线应用与客户端存储（本地存储）
+学习内容：
+	掌握什么是离线Web应用程序？为什么要开发离线Web应用程序？掌握什么是本地缓存，本地缓存与网页缓存有什么区别？
+	掌握什么是manifest文件，怎么样在manifest文件中指定哪些内容需要进行本地缓存，哪些不需要？
+	掌握进行本地缓存时所使用到的applicationCache对象，怎么样利用这个对象的swapCache方法来手工更新本地缓存？
+
+	1. 什么是离线Web应用？
+		所谓离线Web应用，就是在设备不能上网的情况下，仍然可以运行的应用。前端开发者一直希望Web应用能够与传统的客户端应用同场竞技。为了让Web应用程序在离线状态时也能正常工作，就必须要把所有构成Web应用程序的资源文件，如HTML文件，CSS文件，JavaScript脚本文本等放到本地缓存中，当服务器没有和Internet建立连接的时候，也可以利用本地缓存中的资源文件来正常运行Web应用程序。
+
+	2. 本地缓存与浏览器网页缓存的区别？
+		1) 本地缓存是为整个Web应用程序服务的，而浏览器的网页缓存只服务于单个网页，任何网页都可以进行网页缓存，而本地缓存只缓存哪些你指定的缓存网页
+		2) 网页缓存是不安全，不可靠的。而本地缓存是可靠的，我们可以控制对哪些内容进行缓存，哪些不进行，开发人员开可以利用编程的手段来控制缓存的更新。
+
+	3. manifest文件
+		manifest文件是一个简单文本文件，在该文件中以清单的形式列举了需要被缓存或不需要被缓存的资源文件的文件名称，以及这些资源文件的访问路径。你可以为每个页面单独制定一个manifest文件，也可以对整个Web应用程序指定一个总的manifest文件。
+		在H5中规定manifest文件的MIME类型是text/cache-manifest，在测试离线Web应用程序的时候，需要对服务器进行配置，让服务器支持text/cache-manifest这个MIME类型，例如在Apache服务器进行配置的时候，需要找到{apache_home}/conf/mime.types这个文件，并在文件最后添加如下代码
+
+			text/cache-manifest 	manifest
+
+		例如：
+		index.html
+
+			CACHE MANIFEST
+			CACHE:
+			other.html
+			hello.js
+			images/myphoto.jpg
+			NETWORK:
+			*
+			FALLBACK:
+			online.js locale.js
+
+		1) 在manifest文件中，第一行必须是CACHE MANIFEST
+		2) 指定资源文件时，文件路径可以是相对路径也可以是绝对路径，每个资源文件为一行。并且可以将资源文件分为三类：
+			CACHE
+				指定需要被缓存在本地的资源文件。
+			NETWORK
+				指定不进行本地缓存的资源文件。这些资源文件只有当客户端与服务器端建立连接的时候才能访问。"*"表示没有在本minifest文件中指定的资源文件都不进行本地缓存。
+			FALLBACK
+				每行指定两个资源文件，第一个资源文件为能够在线访问时使用的资源文件，第二个资源文件为不能在线访问时候使用的备用资源文件。
+		3) 为了让浏览器能够正常阅读该文本文件，需要在Web应用程序页面上的html标签的manifest属性中指定manifest文件的URL地址。
+			<html manifest="global.manifest">
+			
+			</html>
+			当要对本地缓存区的内容进行修改时，只需要修改manifest文件就可以了，文件被修改后，浏览器可以自动检查manifest文件，并自动更新本地缓存区中的内容。
+		4) 在Chrome中，可以使用 查看你chrome://appcache-internals/ 缓存在本地的资源文件。
+	4. applicationCache对象
+		该对象代表了本地缓存，可以用它来通知用户本地缓存中已经被更新，也允许用户手工更新本地缓存。
+		1) 事件
+			checking		在浏览器为应用缓存查找更新时触发
+			error			在检查更新或下载资源期间发生错误时激发
+			noupdate		在检查描述文件发现文件无变化时触发
+			downloading		在开始下载应用缓存资源时触发,在文件下载应用缓存的过程中不断触发
+			cached			在应用缓存完整可用的时候触发
+			updateready		当浏览器对本地缓存进行更新，装入新的资源文件时，会触发applicationCache对象的updateready事件，通知本地缓存已经被更新。用户需要手工刷新页面来得到最新版本的应用程序。
+		2) 方法
+		 	applicationCache.swapCache()
+				用来手工立即执行本地缓存的更新，它只能在applicationCache对象的updateReady事件触发时调用。
+			applicationCache.update()
+				检查服务器上的manifest文件是否有更新
+		3) 属性
+			status	
+				0	无缓存
+				1	闲置
+				2	检查中
+				3	下载中
+				4	更新完成
+二.数据存储
+	随着Web应用的出现，也产生了对于能够直接在客户端上存储用户信息能力的要求。由于cookie与IE中提供的持久化用户数据的容量限制以及数据安全问题，不能大量存储数据和安全数据，H5中提供了Web Storage
+	学习内容：
+		掌握Web Storage的基本概念，了解sessionStorage和localStorage使用方法以及区别
+		掌握使用sessionStorage和localStorage进行数据存储，对象存储的方法
+		掌握本地数据库的基本概念。掌握SQLLite本地数据库的基本概念以及其使用方法
+		掌握IndexedDB数据库的基本概念以及其使用方法
+
+	1. Web Storage
+		Web Storage最早在Web超文本应用技术工作组（WHAT-WG）的Web应用1.0规范中描述的，这个规范的最初的工作最终成为了HTML5的一部分，WebStorage的目的是克服由cookie带来的一些限制，当数据需要被严格控制在客户端上时，无须持续将数据发回服务器。
+		1) 使用cookie的限制
+			1. cookies的大小被限制在4KB
+			2. cookies是随HTTP事务一起被发送的，因此会浪费一部分发送cookies时使用的带宽
+			3. 要正确操纵cookies是很困难的
+
+		2) WebStorage的两个目标是：
+			提供一种在cookie之外存储会话数据的途径
+			提供一种存储大量可以跨会话存在的数据的机制
+
+		3) Storage类型
+			Storage类型提供了大量的存储空间来存储键值对，Storage实例与其他对象类似，Storage类型只能存储字符串，非字符串的数据在存储之前会被转换成字符串。
+			Storage对象提供的方法
+				setItem(name,value)	为指定的name设置一个对应的值
+				getItem(name)		根据指定的名字name获取对应的值
+				removeItem(name)	删除由name指定的键值对
+				clear() 			
+				删除所有值;
+				key(index)			获得index位置处的值的名字
+				length				Storage对象中，键值对的数量
+			Storage对象提供的事件
+				当在【其他页面】中修改sessionStorage或者localStorage中的值时要执行的处理
+				storage
+					event.key		被修改的数据键值	
+					event.oldValue 	被修改前的值
+					event.newValue 	被修改后的值
+					event.url 		页面的URL地址
+					event.storageArea 	为变动的sessionStorage对象或localStorage对象
+			Web Storage分为两种：
+			1. sessionStorage对象
+				将数据保存在session对象中。session是指用户在浏览某个网站时，从进入网站到浏览器关闭所经过的这段时间，也就是用户浏览这个网站所花费的时间。session对象可以用来保存在这段时间内所要保存的任何数据。(仅限当前选项卡)
+			2. localStorage
+				将数据保存在客户端本地的硬盘设备中，即使浏览器被关闭了，该数据仍然存在，下次打开浏览器访问网站时仍然可以继续使用。
+
+--------------------------------------------------------
+附：
+1. Http Cookie
+	通常直接叫做cookie，最初是在客户端用于存储会话信息的，该标准要求服务器对任意HTTP请求发送Set-Cookie HTTP头作为响应的一部分，其中包含会话信息，例如，这种服务器响应的头可能如下：
+		HTTP/1.1 200 OK
+		Content-type:text/html
+		set-Cookie: name=value
+		Other-header:other-header-value
+	这个HTTP响应设置以name为名称，以value为值得一个cookie，名称和值在传送时都必须是URL编码的。浏览器会存储这样的会话信息，并在这之后，通过为每个请求添加Cookie Http头将信息发送回服务器
+		GET /index.html HTTP/1.1
+		Cookie: name=value
+		other-header: other-header-value
+	发送回服务器的额外信息可以用于唯一验证客户来自发送的哪个请求。
+
+	1. 限制
+		由于Cookie是存在客户端计算机上，还加入了一些限制确保cookie不会被恶意使用，同时不会占用太多磁盘空间，每个域上的cookie总数是有限的，每个浏览器不同。
+			IE6-	20
+			IE7+	50
+			Firefox 50
+			Opera 	30
+			Safari 	没有规定
+			Chrome  没有规定
+		当超过单个域名限制之后还要载设置cookie，浏览器就会清除以前设置的cookie
+
+	2. 构成
+		名称	不区分大小写，唯一
+		值 	存储在cookie中的字符串值，值必须被URL编码
+		域	cookie对于哪个域是有效的 .wrox.com
+		路径	对于指定域中的那个路径，应该向服务器发送cookie	
+				http://www.wrox.com/books  	指定路径，可以访问
+				http://www.wrox.com 	    不可以访问
+		失效时间	默认情况下，浏览器会话结束时会将所有cookie删除，但是也可以自己设置时间，时间值为GMT格式日期（Wdy,DD-Mon-YYYY HH:MM:SS GMT）
+		安全标志 	指定后，cookie只有在使用SSL连接时才发送到服务器
+
+			Set-Cookie: name=value; expires=Mon,22-Jan-07 07:10:24 GMT; domain=.wrox.com; path=/; secure
+
+	3. JavaScript中的cookie
+		在js中处理cookie比较复杂，使用BOM的document.cookie属性
+	4. 关于cookie的思考
+		由于所有的cookie都会由浏览器作为请求头发送，所以在cookie中存储了大量信息会影响到特定域的请求性能。cookie信息越大，完成服务器响应时间就越长，并且不能再cookie中存储如银行卡或个人信息之类的数据，安全性不能保证。
+
+
+
+
+CSS3
+实现圆角（border-radius:8px），
+阴影（box-shadow:10px）
+语法
+box-shadow: h-shadow v-shadow blur spread color ;
+
+h-shadow	必需。水平阴影的位置。允许负值。	
+v-shadow	必需。垂直阴影的位置。允许负值。	
+blur	可选。模糊距离。	
+spread	可选。阴影的尺寸。	
+color	可选。阴影的颜色。请参阅 CSS 颜色值。	
+
+对文字加特效（text-shadow、）
+text-shadow: h-shadow v-shadow blur color;
+
+h-shadow	必需。水平阴影的位置。允许负值。	
+v-shadow	必需。垂直阴影的位置。允许负值。	
+blur	可选。模糊的距离。	
+color	可选。阴影的颜色。
+
+线性渐变（gradient），
+background:-webkit-linear-gradient(top,#ccc,#000);
+
+其共有三个参数，第一个参数表示线性渐变的方向，
+top 是从上到下、left 是从左到右，如果定义成 left top，
+那就是从左上角到右下角。
+第二个和第三个参数分别是起点颜色和终点颜色。
+
+
+旋转（transform） 
+transform:rotate(9deg) 
+scale(0.85,0.90) 
+translate(0px,-30px) 
+skew(-9deg,0deg);//旋转,缩放,定位,倾斜
+ 增加了更多的CSS选择器 多背景 rgba	
+
+
+
+CSS3中的布局
+	【学习内容】
+	掌握CSS3中多栏布局的使用方法，知道为什么要使用多栏布局。
+	掌握CSS3盒布局的使用方法，知道为什么要使用盒布局。
+	掌握CSS3中弹性布局的基本概念以及使用方法
+
+	1. 多栏布局
+		在CSS3中加入了多栏布局方式，使用多栏布局可以将一个元素中的内容【均分】为两栏或多栏显示，并且确保各栏中内容的【底部对齐】。
+		column-count 	属性规定元素应该被划分的列数。
+		column-width 	属性规定列的宽度。
+		column-gap   	属性规定多栏之间的间隔距离。
+		column-rule  	属性在栏与栏之间增加一条间隔线，并且设定该间隔线的宽度，颜色等，该属性的属性值的指定方法与CSS中border属性的属性值指定方法相同。
+
+	2. 盒布局
+		1) 先将父元素设置为盒子模式，通过display属性；
+		2) 为子元素设置box-flex(弹性布局)，用于设定每部分占据屏幕的份额。
+		注意：
+			如果其中一个子容器或多个子容器设置了固定宽度，其它子容器没有设置，其计算方式是这样的：子容器如果设置了固定宽度值，该子容器则直接应用设置的宽度值，其它没有设置的则再父容器的宽度基础上减去子容器设置的固定宽度，在剩下的宽度基础上按一定比例进行划分分配。
+
+			如果给其中一个元素设定外边距，则需要用总宽度减去外边距然后在剩下的宽度基础上按一定比例进行划分分配。
+		例如：
+		.wrap{
+            width:600px;
+            height:200px;
+            display:-moz-box;
+            display:-webkit-box;
+            display:box;
+        }
+        .sectionOne{
+            background:orange;
+            -moz-box-flex:3;
+            -webkit-box-flex:3;
+            box-flex:3;
+        }
+        .sectionTwo{
+            background:purple;
+            -moz-box-flex:2;
+            -webkit-box-flex:2;
+            box-flex:2;
+        }
+        .sectionThree{
+            -moz-box-flex:1;
+            -webkit-box-flex:1;
+            box-flex:1;
+            background:green;
+        }
+ 
+	    <article class="wrap">
+	        <section class="sectionOne">01</section>
+	        <section class="sectionTwo">02</section>
+	        <section class="sectionThree">03</section>
+	    </article>
+	【新规范】最新版本规范的语法，即"display: flex"。
+	【中间版本】2011 年的非官方规范的语法，即"display: flexbox"。
+	【老规范】2009 年的规范的语法，即"display: box"。
+	.wrap{
+            display: -webkit-box;      /* old - iOS 6-, Safari 3.1-6 */
+            display: -moz-box;         /* old - Firefox  */
+            display: -ms-flexbox;      /* tweener - IE 10 */
+            display: -webkit-flex;     /* new - Chrome */
+            display: flex;             /* new, Spec - Opera 12.1, Firefox 20+ */
+        }
+
+	flex-wrap 
+			设置项目的换行方式（当容器宽度不足以容纳所有子项目时）。
+
+		    nowrap		默认值，都在一行或者一列中显示
+		    wrap 		伸缩项目无法容纳时，自动换行
+		    wrap-reverse伸缩项目无法容纳时，自动换行，方向和wrap相反	
+
+
+
+
+
+
+
+	    其他属性
+	   	1) box-orient
+			box-orient(orient译为排列更准确)用来确定父容器里子容器的排列方式，是水平还是垂直。可选属性如下所示：
+				horizontal  将子容器水平排列
+				inline-axis 将子容器水平排列
+				block-axis 	将子容器垂直排列
+				vertical  	将子容器垂直排列
+					如果子容器定义了宽（高）度值，其父容器的宽（高）度值设置则无效状态，子容器各自是自己设置的宽（高）值，如果子容器没有设置宽（高）度值才继承父容器的宽（高）值；
+				inherit		继承父容器排列方式
+
+			例如：
+			-moz-box-orient:horizontal;
+			-webkit-box-orient:horizontal;
+			box-orient:horizontal;
+		2) box-direction
+			box-direction用来确定父容器里的子容器排列顺序，具体属性如下代码所示：
+				normal 	默认值,按照HTML文档里结构的先后顺序依次展示
+				reverse 表示顺序反转
+			例如：
+			-moz-box-direction:reverse;//设置为反转
+			-webkit-box-direction:reverse;//设置为反转
+			box-direction:reverse;//设置为反转
+
+		3) box-align
+			box-align表示父容器里面子容器的垂直对齐方式，可选参数如下所示：
+				start 	表示居顶对齐
+				end  	表示居底对齐
+				center  表示居中对齐
+				baseline表示基线对齐 
+				stretch 表示拉伸，拉伸到与父容器等高
+		4) box-pack表示父容器里面子容器的水平对齐方式，可选参数如下所示：
+				start   表示水平居左对齐
+				end     示水平居右对齐
+				center  示水平居中对齐
+				justify 水平等分父容器宽度（唯一遗憾的是，firefox与opera暂时不支持，只有safari、chrome支持）
+
+	3. 盒布局与多栏布局的区别
+		使用多栏布局时，各栏宽度必须是相等的，在指定每栏宽度时，也只能为所有栏指定一个统一的宽度，栏与栏之间的宽度不可能是不一样的；此外，在使用多栏布局时，也不可能具体指定什么栏中显示什么内容，因此比较适合显示文字内容，不适合做网页布局。
+
+
+
+Media Queries相关样式
+	【学习目标】
+	掌握CSS3中Media Queries模块的基本概念，以及可以实现的功能
+	掌握如何编写媒体查询表达式来让浏览器根据当前窗口尺寸自动在样式表中挑选一种样式并使用。
+	掌握媒体查询表达式的编写方法，熟悉CSS3中定义的所有设备类型以及设备特性，媒体查询表达式各种关键字的含义，以及组合使用设备类型，设备特性和各种关键字来正确编写媒体查询表达式
+1. 根据浏览器的窗口大小来选择使用不同的样式
+	在CSS中，与媒体相关的样式定义是从CSS2.1开始的，CSS2.1定义了各种媒体类型，包括显示器，便携设备，电视机等。CSS3中加入了Media Queries模块，该模块中允许添加媒体查询表达式，允许我们在不改变内容的情况下在样式表中选择一种页面的布局以精确地适应不同的设备，从而改善用户体验。四大浏览器均支持
+
+	1) Media Queries的使用方法
+		1. 直接在link中判断设备的尺寸，然后引用不同的css文件：
+			<link rel="stylesheet" type="text/css" href="styleA.css" media="screen and (min-width: 400px)">
+			<link rel="stylesheet" type="text/css" href="styleB.css"  media="screen and (min-width: 600px) and (max-width: 800px)">
+s
+			解释：
+				当屏幕的宽度大于等于400px的时候，应用styleA.css，当屏幕的宽度大于600小于800时，应用styleB.css
+				screen 是媒体类型里的一种，CSS2.1定义了10种媒体类型
+				and 被称为关键字，其他关键字还包括 not(排除某种设备)，only(限定某种设备)
+				(min-width: 400px) 就是媒体特性，其被放置在一对圆括号中
+
+				要注意的是由于网页会根据屏幕宽度调整布局，所以不能使用绝对宽度的布局，也不能使用具有绝对宽度的元素。
+
+		2. 直接写在<style>标签里
+			@media (min-width: 768px){ //>=768的设备 }
+			@media (min-width: 992px){ //>=992的设备 }
+			@media (min-width: 1200){ //>=1200的设备 }
+		注意下顺序，如果你把@media (min-width: 768px)写在了下面那么很悲剧，
+			@media (min-width: 1200){ //>=1200的设备 }
+			@media (min-width: 992px){ //>=992的设备 }
+			@media (min-width: 768px){ //>=768的设备 }
+		因为如果是1440,由于1440>768那么你的1200就会失效。
+		所以我们用min-width时，小的放上面大的在下面，同理如果是用max-width那么就是大的在上面，小的在下面
+			@media (max-width: 1199){ //<=1199的设备 }
+			@media (max-width: 991px){ //<=991的设备 }
+			@media (max-width: 767px){ //<=768的设备 }
+
+		高级运用：
+@media screen and (max-width: 1200px) { 
+body {min-width:1050px;}
+} 
+
+  
+@media screen and (min-width: 1200px) and (max-device-width: 1500px) { 
+body {min-width:1200px; }  
+} 
+
+  
+@media screen and (min-width: 1500px) { 
+body {min-width:1400px; } 
+} 
+
+
+			@media 设备类型 and {设备特性} {
+				样式代码
+			}
+			@media screen and (max-width: 600px) { 
+			/*当屏幕尺寸小于600px时，应用下面的CSS样式*/
+			  	.class {
+			    	background: #ccc;
+			  	}
+			}
+
+			例如：
+	        @media screen and (min-width: 1200px){
+	            .container{
+	                width:1000px;
+	                margin:0 auto;
+	            }
+	        }
+	        @media screen and (max-width: 1024px) {
+	            .container{
+	                display: flex;
+	                flex-direction: column;
+	            }
+	            .left,.center,.right{
+	                width:100%;
+	                height:200px;
+	            }
+	        }
+
+		3. 在移动设备中如果想要显示的内容看上去不那么小需要添加如下meta
+			<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+
+附：
+CSS2.1定义了10种媒体类型
+	all			所有设备
+	screen 		电脑显示器
+	tv 			电视机类型的设备
+	braille 	盲人用点字法触觉回馈设备
+	embossed 	盲文打印机
+	handheld 	便携设备
+	print 		打印用纸或打印预览视图
+	projection 	各种投影设备
+	speech 		语音和音频合成器
+	tty 		使用固定密度字母栅格的媒介，比如电传打字机和终端
+
+
+					
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

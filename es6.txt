@@ -1,0 +1,687 @@
+﻿1. es6介绍
+	es6是es5的升级版，提供了简洁的语法和新的特性。es6在浏览器上兼容性差一些，但是在nodejs上可以完全兼容。
+
+	es6
+		es6
+		-----babel/webpack(js插件，运行在nodejs上) ----->
+		es5
+
+	js(运行在浏览器上)
+		ajax
+		dom
+
+2. 模块化
+	1) 数据驱动(vue)
+		ajax -> 根据数据创建虚拟的dom节点，追加到页面中
+	customer.js
+	category.js
+	product.js
+		$(`<div class="customer"></div>`)
+		.appendTo($('body'))
+
+	2) dom驱动
+		ajax -> tr -> clone -> 数据填充
+		customer.html (css js)
+			<div class="customer">
+
+			</div>
+
+		category.html(css js)
+		product.html(css js)
+
+	3) 模块定义	(common.js)
+		js文件，目录，目录嵌套
+		1. module变量
+			在任意一个js文件中，都包含一个变量叫module,module表示当前模块的一些信息
+				id
+				filename 	完整路径+文件名
+				paths 		require的时候去哪里寻找要加载的模块
+				parent 		父模块
+				children 	子模块
+				exports 	对外暴露的对象，require当前模块实际上就是require这个exports对象
+		2. require()
+			加载其他模块
+			参数：
+				1) 参数为路径
+					require('./module1')
+					按照指定路径加载需要的模块
+				2) 参数为模块名称
+					require('module1')
+					按照module.paths中指定的路径寻找该模块
+
+		3. node_modules 
+			目录，用于存放第三方模块
+		4. 模块可以为一个目录
+			$ mkdir module2
+			$ cd module2
+			$ npm init 	
+				将该目录初始化为一个node模块，
+				package.json
+		5. npm
+			node的模块管理机制 ，node package manager
+			npm init 
+				将当前目录初始化为一个node模块
+				$ npm init -y
+			npm install xxx
+				安装第三方模块xxx,
+				局部安装，将第三方依赖默认安装到当前目录的node_modules中
+				$ npm install jquery --save(默认)
+				$ npm install jquery -S(默认)
+					--save表示将模块安装到当前目录的node_modules;将这个依赖的信息添加到package.json中dependencies属性中；
+					dependencies中的依赖为产品依赖
+
+				$ npm install babel --save-dev
+					devDependencies 开发依赖，只在产品开发阶段才会使用到，在产品阶段无需这些依赖
+
+
+			npm install xxx -g
+				-g 全局安装，将第三方依赖安装
+					$NODE_HOME/lib/node_modules
+					$NODE_HOME/bin
+					$NODE_HOME/share
+
+			安装cnpm
+			$ npm install -g cnpm --registry=https://registry.npm.taobao.org
+
+			报错：
+				EACCES: permission denied, access '/opt/node-v10.14.2/lib/node_modules/cnpm/node_modules/address'
+
+				报错原因是因为当前用户是普通用户，普通用户不允许操作非家目录
+
+			解决方案：
+				1) sudo 
+				2) 将/opt/node-v10.14.2/lib/node_modules,/opt/node-v10.14.2/bin,/opt/node-v10.14.2/share 这三个目录的拥有者设置为当前用户larry
+
+				$ sudo chown -R $(whoami) $(npm config get prefix)/{lib/node_modules,bin,share}
+
+	4) babel
+		将es6转换为es5，但是注意一点：如果你写的js代码运行在nodejs【服务器，插件】上无需转换。
+		1. 安装babel
+			$ cnpm install -g babel-cli
+			$ babel --version
+		2. 本地安装预设
+			$ cnpm install --save-dev babel-preset-es2015
+
+
+			淘宝镜像
+3. 变量的声明
+	1) var
+		可以重复声明	 	var a =3 ; var a = true;
+		变量的声明会被提升
+		没有局部作用域 
+			for(var i=0;i<100;i++){}
+			console.log(i);
+	2) let 		变量的声明
+		不可以重复声明
+		变量声明不会被提升
+		具有局部作用域
+	3) const 	常量声明
+		不可以重复声明
+		变量声明不会被提升
+		具有局部作用域
+		常量的值无法改变
+
+	4) 解构(模式匹配)
+		1. 对象解构
+		可以一次性从对象或者数组中获取多个值，并且把这些值赋值给不同的变量
+		//let {name,age} = {name:"terry",age:12}
+		//let {name:name,age:age} = {name:"terry",age:12}
+		//let {name:name,age:gender} = {name:"terry",age:12}
+		let {name,age:gender} = {name:"terry",age:12}
+
+		let obj = {
+			realname:"terry",
+			address:{
+				province:"山西省",
+				city:"太原市",
+				area:"尖草坪"
+			}
+		}
+		let {realname,address:{city}} = obj;
+		2. 数组解构
+		//let [a,b,c] = [8,2,5];
+		let [a,a1,a2,[b,b2,b3]] = [8,2,5,[12,3],4];
+		console.log(a,b,b3);
+
+
+4. 对象拓展
+	1) 对象简写
+		let name = "terry",
+		let age = 12;
+		let sayName = function(){
+			console.log(this.name);
+		}
+
+		let obj  = {name, age ,sayName}
+		=>
+		let obj  = {name:name, age:age ,sayName:sayName}
+		=>
+		let obj  = {
+			name:"terry", 
+			age:12 ,
+			sayName:function(){
+				console.log(this.name);
+			}
+		}
+	2) Object.xxx
+		实例可以调用该实例构造函数原型中的方法
+		var o = new Object();
+		o 								实例
+		Object						构造函数
+		Object.prototype 	构造函数原型
+
+		Object.is({},{}) 	类似于===
+		Object.assign(target,o1,o2)
+			将o1,o2中可枚举的属性合并到target中，返回target
+		克隆？？？
+			vue/react/angular
+			监听响应机制
+		Object. getPrototypeOf(obj)
+			获取obj对象的原型也就是其构造函数的原型
+		Object. setPrototypeOf(obj,prototype)
+			为obj对象指定一个新的原型等价于
+			obj.__proto__ = prototype
+		Object.keys()
+		Object.values()
+		Object.entries();
+
+
+5. 函数拓展
+	1) 函数简写
+		1. 函数声明在对象中
+			let obj = {
+				sayName(){
+					console.log(this.name);
+				}
+			}
+			==>
+			let obj  = {
+				sayName:function(){
+					console.log(this.name);
+				}
+			}
+
+		2. 函数声明在参数中（回调函数）【箭头函数】
+			箭头函数中的this的取值为该箭头函数外部函数的this,如果箭头函数没有外部函数，那么这个this就指向全局对象。
+
+			1) 极简模式
+				item表示形参，xxx为返回结果（方法体中只有这一个表达式）
+
+				item=>xxx
+				等价于
+				function(item){return xxx}
+
+				例如从一个数组中筛选出满足条件的值
+				let result = arr.filter(item=>item.gender === "male")
+			2) 普通模式
+				当形参有多个的时候，参数必须添加小括号，当方法体中有多个表达式，方法体一定要加大括号
+				let result = arr.filter((item,index)=>{
+					console.log(index);
+					return item.gender === "male"
+				})
+			3) this指向
+				let obj = {
+	        data:{
+            name:"one",
+            list:[1,3,4,2]
+	        },
+	        foo(){
+            this.data.list.forEach((item)=>{
+            	//箭头函数的this指向外部函数的this也就是obj
+              console.log(this.data.name);
+            })
+	        },
+	        bar(){
+	        	let o = this;
+            this.data.list.forEach(function(item){
+            	//回调函数的this指向global，而我们需要访问obj对象，所以提前先将obj保存到变量o中
+              console.log(o.data.name);
+            })
+	        }
+				}
+
+				obj.foo();
+				obj.bar();
+
+6. rest 操作符 ...
+	... 剥离
+
+	let o1 {
+		name:"terry",
+		...o2
+	}
+	let o2 = {
+		age :12,
+		gender:"male"
+	}
+7. 数组新特性
+	1) 数组的创建方式
+		new Array(3,2)
+
+		[...string]
+
+		Array.from(v)
+			v为类数组对象或者可遍历的对象
+			let array_like = {"0":"terry","1":"larry",length:2}
+			console.log(array_like);
+			// 从数组对象中解构出来slice方法
+			let {slice} = [];
+			//1. 使用原始的Array.prototype.slice转换
+			console.log(slice.call(array_like,0));
+			//2. 使用Array.from转换
+			console.log(array_like);
+			console.log(Array.from(array_like));
+			//3. 使用Array.from转换可以遍历的对象
+			let set = new Set([1,2,3,1,2,4,5,6]);
+			console.log(set);
+			console.log(Array.from(set));
+		Array.of(p1,p2,...)
+			用户将参数中的元素转换为数组
+		Array.prototype.includes
+		Array.prototype.find
+		Array.prototype.findIndex
+			let arr = [
+			    {name:"terry",age:12},
+			    {name:"tom",age:14},
+			    {name:"larry",age:13},
+			    {name:"jacky",age:18},
+			    {name:"vicky",age:11}
+			]
+			//let result = arr.find(item=>item.age === 13)
+			let result = arr.find(function(item){
+			    return item.age === 13
+			})
+			console.log(result);
+		Array.prototype.fill
+			new Array(3).fill(9)
+		Array.prototype.keys
+		Array.prototype.values
+		Array.prototype.entries
+
+		数组的迭代
+			let arr = ["terry","larry","tom","jacky"];
+			//1. 获取迭代器
+			let values_iterator = arr.values();
+			//2. 通过迭代器获取数组中的元素
+			let item ;
+			while(!(item = values_iterator.next()).done){
+			    console.log(item.value);
+			}
+			//3. 使用for-of遍历迭代器
+			let entry_iterator = arr.entries();
+			for(let entry of entry_iterator){
+			    console.log(entry);
+			}
+			//4. 使用for-of遍历数组
+			for(let item of arr){
+			    console.log(item);
+			}
+
+  2) 集合api
+  	Set 	无序不可以重复的集合（数组中的元素可以重复）
+  		1. 实例化Set对象
+  			let set = new Set();
+  			let set = new Set([1,2,3,1,2])
+  		2. Set.prototype.xxx
+  			size			set集合中元素的个数
+  			add(val)		向集合中添加val
+  			delete(val) 从集合中删除val
+  			has(val) 		判断集合中是否存在val
+  			clear() 		清空
+  			forEach() 	遍历
+  			keys() 			迭代器
+  			values() 		迭代器
+  			entries() 	迭代器
+
+  	Map  	key可以为任意数据对象（对象的key只能为字符串）
+  		1. 实例化map对象
+  			let map = new Map();
+  			let map = new Map(entry);
+  		2. Map.prototype.xxx
+  			size
+  			set(key,val) 	向map中添加键值对,key不可以重复,如果重复，value更新    
+  			get(key) 			通过key获取value
+  			has(key) 			判断map集合中是否存在指定的key
+  			delete(key) 	通过key从map集合中删除
+  			clear() 			清空map集合
+  			keys() 		迭代器对象
+  			values() 	迭代器对象
+  			entries() 迭代器对象
+
+  			{
+  				B01 可口可乐 		2.0 	3 	6.0
+  				C01 北京方便面	1.0 	5 	5.0
+  				D02 雀巢咖啡		15.0 	2 	30.0
+  			}
+
+  		var obj = {
+  			iterator:1,
+  			iterator:xxx
+  		}
+
+  		Map
+
+8) Symbol
+	通过Symbol() 产生一个不会冲突的变量，这个变量用于向对象中插入一个属性而不对对象中其他属性造成影响。
+
+	Symbol的典型应用就是想对象中添加迭代器的功能
+	var s = new Set()
+	s具有迭代器
+
+	s[Symbol.iterator]
+
+9) Promise
+	1. 实例化一个Promise对象
+		承诺对象，用于封装异步操作。
+		pending
+		resolved 	兑现
+		rejected 	失败
+
+		let promise = new Promise(function(resolve,reject){
+			//异步操作
+			当异步操作成功的时候执行resolve(),就可以将承诺的状态由pending -> resolved
+
+			当异步操作失败的时候执行reject()，就可以将承诺的状态由pending -> rejected
+		})
+		当promise实例产生，这个Promise中的回调函数就会执行。通过then方法监听承诺对象状态的改变
+
+	2. Promise.prototype.xxx
+		then(resolved_callback,rejected_callback)
+			resolved_callback 当承诺对象状态 pending -> resolved
+			rejected_callback 当承诺对象状态 pending -> rejected
+		catch(rejected_callback)
+			rejected_callback 当承诺对象的状态pending -> rejected
+			不管是ajax交互中出现的404、500异常会被catch捕获，在then中的代码语法错误也会被catch捕获
+		finally(callback)
+			不管承诺的状态最终如何，该函数中的回调函数都会执行
+	3. Promise.all()
+		let promise = Promise.all(p1,p2,p3,...)
+	4. Promise.race()
+	5. Promise.resolve()
+		将参数对象转换为一个承诺对象
+	6. Promise.reject()
+		返回一个状态为rejected的承诺对象
+
+
+
+10. try-catch机制
+
+
+11. Generator函数
+	1) 声明
+		function* method_name(){
+			yield xxx
+			yield xxx
+		}
+
+	2) yield表达式
+		yield只能出现在generator函数中
+		yield 值
+		yield 函数的调用
+		默认情况下yield表达式的返回值为undefined
+
+	3) 调用
+		let iterator = method_name();
+		//Generator调用的结果为迭代器
+		iterator.next() 	
+		//每次调用next方法可以依次获取每个yield的值
+	4) Generator函数的应用
+		1. 可以生成迭代器对象
+			let obj = {"0":"terry","1":"larry"}
+			问题：如何将obj转换为一个可迭代的对象
+			思路：
+				obj[Symbol.iterator] = [][Symbol.iterator]
+				obj[Symbol.iterator] = 迭代器的生成函数
+			例如：
+				let obj = {"0":"terry","1":"larry","2":"tom"};
+				obj[Symbol.iterator] = function* (){
+				    for(let key in obj){
+				        let val = obj[key];
+				        yield [key,val];
+				    }
+				}
+				obj.entries = obj[Symbol.iterator];
+		2. 利用Generator函数实现异步函数的同步化
+				function* foo(){
+					let customers = yield call($.get,c_url)
+					let order = yield call($.get,a_url)
+				}
+				/*
+					异步函数的执行器{
+						1）在上一个请求结束后再去调用下一个请求；
+						2）将当前请求结果左右yield表达式的返回值返回
+					}
+				*/
+				function call(handler,url){
+					handler(url)
+					.then((response)=>{
+						// 1）2）
+						iterator.next(response)
+					})
+				}
+
+				let iterator = foo()
+				iterator.next()
+
+			第三方模块 co
+
+12. Async 函数
+	Generator函数的语法糖（对于Generator函数简化和功能增强）
+
+	async function foo(){
+		let customers = await $.get(c_url);
+		let address = await $.get(a_url)
+		return [];
+	}
+
+	let promise = foo();
+	promise.then((result)=>{
+		result为foo函数的返回值
+	})
+13. axios
+	基于Promise的ajax的框架
+	axios既可以运行在浏览器上又可以运行在nodejs上
+		如果运行在浏览器中，封装XMLHttpRequest
+		如果运行在nodejs，封装http模块
+	1) ajax
+		1. XMLHttpRequest 	不能使用任何框架来完成异步请求
+		2. jQuery.ajax  		【jquery,bs,easyui,ECharts...】
+		3. axios 						【vue + vuex + vueRouter + element】
+	2）原理
+		get(url){
+			return new Promise((resolve,reject)=>{
+				xhr
+				xhr.onreadystatechage = function(){
+					if(this.status === 200){
+						resolve(this.response)
+					} else {
+						reject();
+					}
+				}
+			})
+		}
+	3) 导入axios
+		1) 模块化
+			cnpm install axios --save
+		2) script标签导入
+			<script src="xxxx/axios.min.js"></script>
+	4) 底层接口
+		axios(config) 	返回一个ajax承诺对象
+		config 是配置对象
+		{
+			url,
+			method,
+			data, 		请求体参数（post请求）
+			params ,		请求行参数（get请求）
+			headers:{
+				"Content-Type":"application/json"
+			},
+			responseType:"json",
+			withCredentials:false,	默认不携带cookie
+			baseURL, 	// 基础路径
+			timeout, 	// 5000 请求超时的最大时间
+			transformRequest:[(data,headers)=>{},()=>{}]
+				在请求发送到服务器端之前允许我们对data进行处理，一般用于编码
+			transformResponse:[(data)=>{}]
+				在响应结果达到then/catch之前对结果进行处理，data为后端返回来的原始数据
+			paramsSerializer: function (params) {
+		    return Qs.stringify(params, {arrayFormat: 'brackets'})
+		  },
+		  	序列化params为查询字符串。get方式传递的参数需要拼接在浏览器地址栏的url的后面，只能为查询字符串
+
+		}
+	5) 快捷接口（RESTFULL）
+		axios.get(url[,config])
+			查询
+		axios.post(url[,data][,config])
+			保存
+		axios.delete(url[,config])
+			删除
+		axios.put(url[,data][,config])	
+			修改
+
+		axios.get("/customer") 	查询顾客信息
+		axios.post("/customer") 保存顾客信息
+		axios.delete("/customer") 	删除顾客信息
+		axios.put("/customer") 			修改顾客信息
+
+	6) response
+		1) response为then回调函数中的参数，也就是axios的请求成功的结果。这个结果不是后台直接返回的对象，而是二次封装的对象
+			axios()
+			.then((response)={
+
+			})
+		2) response架构
+			{
+				status,
+				statusText,
+				data,					// 后台服务接口返回的数据
+				headers,
+				config,
+				request
+			}
+	7) axios默认配置
+		axios.defaults用于保存默认的配置信息，这个配置将对所有的axios对象产生影响
+
+		axios.defaults.baseURL
+		axios.defaults.timeout
+		axios.defaults.transformRequest
+		axios.defaults.transformResponse
+		axios.defaults.headers.common
+		axios.defaults.headers.post
+		axios.defaults.headers.get
+		...
+	8) 拦截器
+		1) 请求拦截器
+		axios.interceptors.request.use(function(config){
+			// 在这里编写在请求之前你想执行的代码
+			return config;
+		},function(error){
+			return Promise.reject(error)
+		})
+
+		2) 响应拦截器
+		axios.interceptors.response.use(function(response){
+			// 在这里编写在响应获取之后你想执行的代码
+			return response;
+		},function(error){
+			return Promise.reject(error);
+		})
+	9) 常见配置
+		let axios = require("axios")
+		let qs = require("qs")
+
+		// 配置默认基路径
+		axios.defaults.baseURL = "http://127.0.0.1:6677";
+		// axios.defaults.baseURL = "http://134.175.100.63:6677";
+		axios.defaults.headers.common["Content-Type"] = "application/x-www-form-urlencoded"
+		axios.defaults.transformRequest = [(data)=>{
+		    return qs.stringify(data);
+		}]
+
+		// 拦截器
+		axios.interceptors.response.use(function(response){
+		    return response;
+		},function(error){
+		    // 当任何一个ajax请求出现异常的话都会打印错误信息！
+		    console.log("error!!!");
+		    return Promise.reject(error);
+		});
+
+14. 类
+	es5构造函数的语法糖
+
+	1) 构造函数
+		function Animal(name){
+			this.name= name;
+		}
+		Animal.prototype.sayName = function(){
+			console.log("my name is ",this.name);
+		}
+
+		function Dog(name,age) {
+			// 借用构造函数继承
+			Animal.call(this,name)
+			this.age = age;
+		}
+		// 原型链继承
+		Dog.prototype = new Animal();
+		Dog.prototype.sayAge = function(){
+			console.log("my age is",this.age);
+		}
+
+		let d = new Dog("一休",2);
+		d.sayName()
+		d.sayAge();
+	2) class
+
+		class Animal {
+			// 构造函数
+			constructor(name){
+				this.name = name;
+			}
+			// 普通函数
+			sayName(){
+				console.log("我的名字为",this.name);
+			}
+		}
+
+		class Dog extends Animal {
+			constructor(name,age){
+				super(name);
+				this.age = age;
+			}
+			sayAge(){
+				console.log("我的年龄为",this.age);
+			}
+		}
+		let dog = new Dog("一休",2.5);
+		dog.sayName();
+		dog.sayAge();
+
+
+
+
+---------------------
+day01
+		index.js
+		module1.js
+		node_modules
+			common.js
+		module2
+			package.json
+			index.js
+			node_modules
+				qs
+				jquery
+				lodash
+
+类数组对象到数组的转换
+	Array.prototype.slice.call(arrayLike,0)
+
+
+
+
+
+
+

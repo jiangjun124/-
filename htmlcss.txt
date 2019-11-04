@@ -1,0 +1,1099 @@
+﻿1. html 
+	文本 （纯字符）
+	超级文本标记语言
+		字符，图片，超链接，视频，音频
+
+	载体 - 文档
+	<h1>hello world</h1>
+	<p>段落</p>
+	<video src="a.mp4"></video>
+	<a href="http://www.baidu.com">百度一下</a>
+
+2. B/S架构
+	b浏览器
+	s服务器
+3. 网络概念
+	Http  超文本传输协议
+	url 	统一资源定位符
+		http://www.baidu.com/index.html
+		http://ip:port/path
+		http://134.175.154.93:80/basic/start.html
+			主机位置：134.175.154.93
+			服务地址：
+				80 		apache
+				3306 	mysql
+				...
+				/var/www/html apache的部署目录
+			资源路径
+				/basic/start.html
+
+	uri 	统一资源标识符
+
+4. html网页
+	1) 开发流程
+		1.1 编写网页 （sublime/vscode）
+		1.2 本地测试
+		1.3 部署（linux）
+			将本地的html网页上传至云服务器上，并且部署到apache静态服务器上
+		1.4 网络测试
+			http://134.175.154.93/1-helloworld.html
+	2) 网页元素
+		html4
+			<strong></strong>
+		->
+		html5
+			<strong></strong>
+
+		程序员 	编写 
+		浏览器 解析 
+			webapp
+
+			移动互联 -> H5
+				android 	webapp
+					浏览器 google h5
+				ios
+					浏览器 safari h5
+
+		注释
+			<!--注释-->
+			美团
+
+		元素
+			开始标签，子元素，结束标签
+			<div id='one'>hello world</div>
+			<div>
+				<span>hello world</span>
+			</div>
+		属性
+			在开始标签中可以添加属性
+				<div 属性名=属性值 属性名=属性值>
+				属性名不区分大小写
+				<div id="one"></div>
+				<div ID="one"></div>
+			核心属性（绝大多数标签都可以应用的属性）
+				id 			文档内部的唯一标识
+				class 	类
+					<div class="first one">one</div>
+					<div class="first two">two</div>
+					<div class="first three">three</div>
+				title 	描述
+				style 	样式，取值为css规则
+					css规则,键值对，键值之间通过冒号分割，规则之间通过分号分割
+					<div id='one' style="color:#333;backgroud:#ededed"></div>
+			特有属性
+				a
+					href
+					target
+				img
+					alt
+					src
+			h5拓展属性
+				data-xxx
+					<div data-nn='one'></div>
+
+		3) 结构
+			doctype 	声明部分 
+			html
+				head
+					不会显示到浏览器视口中
+					title		显示在浏览器选项卡
+					meta 		用于设置元信息,配置
+						charset=utf-8 	
+						gbk
+						big5 	报社 	
+							环球新闻导报（php）
+						utf-8 
+							nihao 	汉语拼音
+							hello 	函数
+
+						编码
+							编辑器 UTF-8
+						解码
+							浏览器 
+				body
+					网页主体
+		4) 元素
+			1. 块元素 （box）
+				作用：作为页面框架，或者容器。是页面的主体
+				特性：
+					1) 独占一行空间
+					2) 默认宽度为100%，默认高度由子元素或者内容决定 
+					3) 可以为其指定宽高 style="width:;height:;" 
+
+					div 	无意义的块元素（无招）
+					h1~h3	标题
+						font-size
+						font-weight
+						margin
+					p 		段落
+						margin
+					html
+					body
+						margin
+					ul、li 	无序列表，列表项	
+						ul
+							margin
+							padding
+							list-style
+						li
+					ol、li  	有序列表，列表项
+						ol
+							margin
+							padding
+							list-style
+					dl、dt、dd 	有序列表
+						dl
+							margin
+						dd
+							margin
+
+					H5新增的块元素（语义化标签）
+						header(头)
+						nav
+						article（主体）
+						section (部分)
+						footer（脚）
+						aside
+
+			2. 行内元素(label)
+				作用：点缀网页，填充内容
+				特性：
+					1) 与其他行内元素共享一行空间
+					2) 默认宽高由内容决定
+					3) 不能为其指定宽和高
+					4) 行内元素中不可以嵌套块元素，但块元素中可以嵌套行内元素
+
+				span 	无意义的行内元素
+				a 		超级链接（axure open link）
+					默认样式
+						color
+						text-decoration
+						cursor
+					默认事件（js - dom） 点击事件
+					href
+						url
+						相对路径
+						绝对路径
+						mailto
+						锚点
+						...
+
+					target
+						_self
+						_blank
+				img
+					src 	图片地址
+						url
+						相对路径
+						绝对路径
+						base64格式的数据
+					alt 	图片找不到的时候文本替换
+
+					图片地图
+					<img src="" alt="">
+					<map>
+					canvas
+
+				strong
+				bold
+				b
+				em
+				i
+				sub
+				sup
+				del
+				...
+			3. 功能元素	（行内元素）
+				1) 表格
+					table
+						【属性】border、width、、、、
+						caption 	表格标题
+						thead 		表头部分
+							tr 
+								th/td
+						tbody 		表格主体部分【不可以省略】
+							tr
+								td/th
+								【属性】colspan、rowspan、width、align
+								td/th中可以放任意子元素
+						tfoot 		表底部分
+							tr
+								td
+					【注意】：每一行中的列数应该是相等
+				2) 表单（前后台交互）
+					用户 -> 表单 -> 后台 -> 数据库
+
+					注册页面
+					登录页面
+					搜索框
+
+					<form action="">
+						input
+						select
+						textarea
+					</form>
+
+
+					form
+						action 	后台接口地址
+						method 	请求方式
+							get
+								参数拼接在url后面，通过?来分割
+								传递参数较少
+								查询学生信息、通过id删除学生信息、
+							post
+								参数存放在请求体中，安全
+								传递参数更多
+								保存或者更新学生信息、批量删除
+						enctype 编码方式
+							1. enctype='application/x-www-form-urlencoded'
+
+								浏览器就会将参数转换为【查询字符串 qs】格式
+								username=charles&password=123321&nickname=李四&emailcharles@briup.com
+
+							2. multipart/form-data
+								当有附件在表单中的时候，enctype务必设置为这种格式
+
+
+						ajax
+							查询字符串
+								username=charles&password=123321&nickname=李四&emailcharles@briup.com
+							JSON
+								'{"username":"charles","password":"123321"}'
+					input
+						name: 			不能省略，作为参数中的key
+						value: 			作为参数中的value,在按钮中务必指定value值
+						type:
+							text 			单行文本框
+							password 	密码框
+							submit 		提交按钮
+							file 			附件选择器
+							radio 		单选按钮
+							checkbox 	复选按钮
+
+							h5拓展(兼容性，功能)
+								email
+								date
+								number
+								...
+								progress
+
+						checked: 		单值属性	默认选址
+						placeholder 提示语
+
+					select
+						option
+							标签中的文本显示在网页中，提交的值应该是option的value值，当这个值没有设定的时候，提交的是标签中的文本
+							<option value="sx">山西</option> 	sx
+							<option>山西</option> 							山西
+
+					textarea
+						多行文本域
+						placeholder 提示语
+
+					第三方库
+						日期插件
+						地址选择器地址
+						附件上传
+						富文本
+
+
+# day02
+	1. 复习
+		html 超文本标记语言
+			编译型语言
+				C 		.c 		-> .o(linux)
+				Java 	.java -> .class(jvm - linux)
+			解释型语言
+				PHP
+				js 	
+					.js 
+				html(标记语言)
+					.html
+	2. 语法
+		注释 <!---->
+		元素，开始标签，结束标签，子元素
+		属性，核心属性，特有属性，拓展属性
+	3. 互联网
+		局域网，广域网
+
+		w3c组织 	html/css 	
+			w3c 	标准 			
+			程序员	编写代码
+			浏览器 	解释代码
+
+		sun公司（oracle） 	Java
+			sun 			标准
+			程序员			编写代码
+			(sun)jvm 	解释代码
+
+		http协议
+			请求报文
+			响应报文
+		url
+		b/s
+	4. 块元素
+	5. 行内元素
+	6. 如何合理的应用元素
+		h1~h3	标题
+		p 	
+		ul>li
+
+
+css
+1. 介绍
+	层叠样式表
+
+	层叠
+		多个样式表修饰同一个元素
+		继承
+		优先级
+	样式表
+		{
+			color:#fff;
+		}
+2. 在html中如何应用css
+	1) 在元素中添加style属性，style属性值为css样式规则
+		<div style="width:100px;height:100px;"></div>
+		缺点:样式与结构与杂糅
+		优点:简单直接，优先级高 
+	2) 将样式添加到head标签中的style标签里
+		<style>
+
+		</style>
+	3) 将样式定义在css文件中，通过link导入进来
+3. 语法
+	选择器 {
+		样式名:样式值;
+		样式名:样式值;
+		...
+	}
+4. 选择器
+	1. 核心选择器
+		标签选择器 	
+			div {}
+		id选择器
+			#one {}
+		class选择器
+			.second {}
+		逗号选择器
+			div,#one {}
+			ul,ol {}
+		组合选择器
+			div#one {}
+		普遍选择器
+			*	不单独使用
+	2. 层次选择器
+		子元素选择器
+			.nav > ul > li {}
+		后代选择器
+			.nav li {}
+		下一个兄弟选择器
+			.products > li.ios + *{}
+		之后所有兄弟选择器
+			.products > li.ios ~ *{}
+	3. 属性选择器,过滤（表单元素）
+		selector[]
+		input[placeholder]
+		input[type=text]
+		input[type^=t]
+		input[type$=t]
+		input[type*=t]
+
+	4. 伪类选择器,过滤器
+		与状态相关
+			:link  		a标签还未被访问
+			:hover 		光标悬浮到元素上
+			:active 	a标签激活
+			:visited 	a标签访问过
+		与子元素相关
+			:first-child
+			:last-child
+			:nth-child(v)
+				v 为数字，公式，关键字
+
+			:first-of-type
+			:last-of-type
+			:nth-of-type
+
+	5. 伪元素
+		::after
+		::before
+		副作用：在dom节点中产生一个新节点
+
+		了解
+		::first-letter
+		::first-line
+		::selection
+5. 规则
+	1. 字体样式(可以被继承)
+		font-family:"微软雅黑","Microsoft YaHei","宋体",serif;
+		font-size:12px;		字体大小
+			浏览器默认字体为16px
+		font-weight:bold;	字体粗细
+			normal
+			bolder
+			100~900
+		font-style:normal;	是否开启斜体
+			italic
+		line-height:2em; 行高【文本垂直居中】
+
+		font:style weight size/line-height family;
+			例如：italic bold 12px/2em 'Microsoft YaHei',serif
+
+		网络字体
+			主要用于字体图标库（iconfont/fontawesome）
+		使用步骤：
+			1) 在iconfont网站中选择图标，加入项目，产生代码
+			2) 将产生的代码在html中通过link引用 http://at.alicdn.com/t/font_1328534_f3dyyeuoew.css		
+			3) 应用css中定义好的类，来使用对应的图标
+
+	2. 文本样式(可以被继承)
+		color:#333; 		字体颜色
+		text-align:center	【文本水平居中】
+		text-decoration-line
+			underline
+			line-through
+			overline
+			none
+		text-decoration-style
+			solid
+			dotted
+			double
+			dashed
+			wavy
+			...
+		text-decoration-color
+			颜色
+		text-decoration:none;	字体装饰
+		text-indent:2em; 			文本缩进
+		text-shadow:12px 2px 3px #ccc;
+
+	3. 列表样式
+		list-style-type
+			circle
+			square
+			...
+		list-style-image
+			url('')
+		list-style-position
+			outside
+			inside
+		list-style:none;
+
+	4. 盒子样式(盒子，块元素)
+		width
+		height
+
+		margin-top
+		margin-right
+		margin-bottom
+		margin-left
+		margin
+			margin:10px;		上右下左	
+			margin:0 10px; 	上下为0，左右10px
+			margin:0 5px 10px; 	上0，左右5px，下10px
+			margin:0 5px 10px 15px; 	上右下左	
+
+		border-top-style 	边框线类型
+		border-top-width 	边框宽度
+		border-top-color 	边框线颜色
+		border-top
+
+		border-right-style 	边框线类型
+		border-right-width 	边框宽度
+		border-right-color 	边框线颜色
+		border-right
+
+		border-bottom-style 	边框线类型
+		border-bottom-width 	边框宽度
+		border-bottom-color 	边框线颜色
+		border-bottom
+
+		border-left-style 	边框线类型
+		border-left-width 	边框宽度
+		border-left-color 	边框线颜色
+		border-left
+
+		border-color
+		border-style
+		border-width
+
+		border:1px solid #ededed; 【*】
+
+		padding-top
+		padding-right
+		padding-bottom
+		padding-left
+		padding
+
+		box-shadow: 5px 5px 10px #ccc;
+		box-shadow:inset 0 0 3px lightblue;
+
+		border-radius 	圆角半径
+
+		background-origin 	背景铺设的起点
+			border-box 		边框下
+			padding-box 	内边距下
+			content-box 	内容下
+		background-image 		背景图片
+			url
+		background-repeat 	背景重复方式
+			repeat-x
+			repeat-y
+			no-repeat
+		background-color 		背景颜色
+			颜色
+		background-position 背景位置
+			center
+			top left
+			10px 20px
+		background-clip 		背景裁切方式
+			border-box 		边框下
+			padding-box 	内边距下
+			content-box 	内容下
+		background 					速写
+			background:url('') no-repeat center;
+			background-size:cover;
+			=>
+			background:center/cover padding-box url('') no-repeat ;
+
+		一个盒子的组成：
+			外边距 	 	margin
+			边框 		border
+			内边距 		padding
+			内容 		存放子元素或者内容的区域
+
+			盒子所占面积？
+			盒子存放内容的区域为多大?
+
+		盒子计算方式
+			box-sizing:content-box;内容盒子（传统盒子）
+				width = 内容宽
+				height = 内容高
+				所占的宽 = border + padding + width
+				所占的高 = border + padding + height
+
+
+			box-sizing:border-box;边框盒子（怪异盒子）
+				width = 边框以内所有的和
+				width = border + padding + 内容宽
+
+	5. 单位
+		颜色
+			#333333 	=> #333
+			#ededed
+			rgb(0,0,0) 	=>#000000
+			rgba(0,0,0,0.3)
+			渐变
+		长度
+			绝对单位
+				px 
+			相对单位
+				em 		当前元素上的font-size的值
+					font-size:12px ;
+					1em = 12px;
+					2em = 24px;
+				rem
+					html{font-size:14px}
+					1rem = 14px;
+				%
+					width 相对于父元素
+					border-radius 	相对于当前元素的width
+					...
+		关键 
+			center
+			border-box
+			content-box
+		函数 	
+			url()
+			rgb()
+			rgba()
+
+	6. 选择器优先级
+		1000 			style
+		100 			#
+		10 				. 伪类 属性
+		1					元素 伪元素
+
+		#one >input[type='text'] {
+			color:red;
+		}
+		<input type="text" style="color:blue">
+
+		100 + 1 +10 = 111
+		1000
+
+
+
+
+
+
+	7. 布局【*】
+		使用块元素搭建页面框架
+			块元素独占一行空间
+		布局的本质就是让块元素在一行中显示
+		7.1 浮动布局
+			float:left/right
+			脱离文档流：
+				1) 宽度高度默认由内容决定
+				2) 原先所在位置就会被其他块元素抢占
+				3) 浮动元素在一行中依次排列，当一行无法容纳的时候会自动换行
+
+			应用：
+			1) 全部浮动（2+ 列）
+				ul::after {
+					display:block;
+					content:"";
+					clear:both;
+				}
+				ul> li {
+					float:left;
+					with:计算
+				}
+
+				<ul>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
+			2) 左侧浮动，右侧不浮动（2列）
+				.content > .left{
+					float:left;
+					width:220px;
+				}
+				.content > .right {
+					margin-left:230px;
+				}
+
+				<div class="content">
+					<div class="left"></div>
+					<div class="right"></div>
+				</div>
+		7.2 定位布局
+			1) 作用：当一个元素悬挂在其他元素之上，优先考虑定位布局
+					eg: 模态框、下拉菜单、二级菜单、固定宣传栏、网页聊天页面
+			2) 用法：
+				position:static/ relative / absolute / fixed / 
+
+				static 默认	静态布局，默认文档流中，非定位元素
+
+				relative 	定位元素(相对定位)
+					1) 没有脱离文档流
+					2) 参照点为当前元素原本的位置
+
+				absolute 	定位元素(绝对定位)
+					1) 脱离了文档流
+					2) 参照距离当前元素最近的父定位元素，如果所有的父元素都没有定位元素，参照浏览器视口
+
+				fixed 		定位元素(固定定位)
+					1) 脱离了文档流
+					2) 参照浏览器视口
+
+				sticky 		定位元素(粘滞定位)
+					1) 不脱离文档流
+					2) relative 和 fixed 的结合
+						top:50px
+						当当前元素距离浏览器视口顶端为50px的时候，体现fixed的特点
+
+				定位元素的特点
+					可以使用描述当前元素位置的属性 top、right、bottom、left
+					z-index
+					参照点
+					是否脱离文档流
+
+		7.3 伸缩盒布局
+			1) 作用：使得子元素在父元素中分列显示，与float的作用类似。一般用于响应式布局（手机app中）
+			2) 用法
+				1. 父元素在主轴上一定要有一个固定的宽/高
+				2. 子元素在交叉轴上默认宽/高占满父元素
+					如果主轴为x轴，那么资源的默认高度占满父元素
+					如果主轴为y轴，那么资源的默认宽度占满父元素
+				3. 
+
+
+				<ul>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
+
+				ul {
+					display:flex;
+				}
+
+
+				ul 伸缩盒
+					1)设置父元素为伸缩盒 (display)
+						flex
+					2) 主轴 （flex-direction）
+						主轴 	默认情况下为x轴 	
+							row 【左中右】/column【上中下】
+						交叉轴 默认情况下为y轴 
+						元素沿着伸缩盒的主轴排列的
+					3) 伸缩盒自动换行（flex-wrap）
+						子元素宽度和大于父元素的时候是否换行
+							nowrap 	默认值，不换行
+							wrap 		换行
+				li 伸缩盒的元素
+					1) 基础值
+						flex-basis 	主轴上元素的基础值(宽/高)
+					2) 对盈余空间的分配
+						flex-grow
+					3) 对亏损空间的贡献
+						flex-shrink:
+					4) 速写
+						flex: grow shrink basis;
+
+
+
+	8. svn应用
+		代码版本控制，团队协作，代码备份
+		1) 搭建 svn 服务器
+		2) 安装svn客户端 tortoisesvn
+		3) 通过tortoisesvn检出团队所有项目 check out，获取到一个本地的svn仓库
+		4) 本地操作
+			修改
+			添加
+
+
+	9. 动画
+		1) 动画定义
+			@keyframes 动画名称{
+				from {
+
+				}
+				to{
+
+				}
+			}
+			=》
+			@keyframes 动画名称{
+				10% {
+					
+				}
+				20%{
+
+				}
+				...
+				100%{
+
+				}
+			}
+		2) 动画应用
+			animation-name:动画名称;
+			animation-duration:		动画持续时间
+				5s; 
+			animation-delay: 			动画的延迟
+				1s
+			animation-direction 	动画运动方向
+				reverse
+				alternate
+			animation-fill-mode: 	动画结束后保留哪个样式
+				forwards	保留最后一帧的样式
+				backwards 保留第一帧的样式
+			animation-iteration-count: 	动画执行的次数
+				4
+				infinite
+			animation-timing-function: 	动画执行的时间曲线
+				linear
+				steps
+			animation-play-state: ;	动画播放状态
+				running
+				paused
+			animation:	
+				速写形式 
+			animation: 4s linear 0s infinite alternate move_eye
+
+		3) 第三方动画库（animate.css）
+			封装了css3的通用的动画样式，专业
+			https://daneden.github.io/animate.css/
+			1. 引入动画库
+			2. 为元素添加class
+	10. 过渡效果
+		transition
+
+		1) transition和animation的区别
+			1. transition必须要触发，一般使用:hover
+			2. transition不需要设置关键帧
+			简单的过渡效果使用transition，复杂的动画使用animation
+		2) 用法
+			transition-property 	指定过渡的属性
+				可以指定一个属性 	width
+				可以指定多个属性		width,background
+				可以指定所有属性 	all
+			transition-duration 	过渡持续的时间
+				可以指定秒，以及毫秒 	s /ms
+			transition-timing-function 	过渡的时间曲线
+			transition-delay 			过渡延迟
+				可以指定秒，以及毫秒 	s /ms
+			transition 						速写
+				transition:property duration timing delay;
+				例如：
+				transition: margin-right 2s ease-in-out .5s;
+	12. 变形(transform:)
+			scale(2)				变大
+			skewX(45deg) 		倾斜
+			skewY(45deg) 		倾斜
+			skew(45deg) 		倾斜
+			rotate(45deg)		旋转
+			rotateX(45deg)		旋转
+			rotateY(45deg)		旋转
+			rotateZ(45deg)		旋转
+			translateX(200px) 	
+			translateY(300px) 	
+			translate(200px,300px)
+			...
+			mdn 	
+
+	13. 媒体查询
+
+		1. 网页在不同终端下显示不同的布局？
+			1) 多套网页(京东，淘宝，网易)
+				pc 			index_pc.html 
+				mobile 	index_mobile.html 
+				pad 		index_pad.html
+			2) 一套（）
+				index_all.html
+				可以适应所有的屏幕
+				
+				@media screen and (min-width: 768px) and (max-width: 1024px) {}
+				@media screen and (min-width: 1024px) {}
+
+		2. 响应式布局框架(bootstrap) 50个
+			布局（响应式）
+				1) 媒体查询 media
+				2) 布局（float , flex）
+			框架
+				Bootstrap
+
+				十二栅格系统
+
+				vue elementui 24栅格系统
+
+
+
+
+参考网站
+	https://developer.mozilla.org/en-US/docs/Web/HTML
+
+
+
+
+=========作业【下周一完成】=========
+1. 将上课的工程进行check in 、check out测试
+2. 以组为单位，选取一个项目进行原型绘制
+	以手机端为案例 （美团、小众App）
+	组长创建项目，并且上传项目到svn上 groupX
+		svn://134.175.154.93/web1903/groupX/xx
+		分工
+			张三： 通讯录，聊天
+			李四： 发现，朋友圈
+
+	组员更新项目，将项目下载到本地进行开发
+
+	TIM共享文档
+
+	简历
+		个人信息
+			博客地址：http://www.segmentfault.com/xxx
+		职业技能
+			1. axure
+			2. html5 css3 javascript
+			...
+		项目经验
+			1. 绘制newbalance原型
+				xxx axure svn 团队
+				....
+
+				产品地址：http://134.175.154.93/basic/start.html
+2. h5与h4区别
+	1) doctype声明
+	2) meta的声明 
+	3) 添加了新的标签，淘汰了一些旧的标签
+
+3. 语义化理解（编程思想）
+
+
+参照接口
+http://134.175.154.93:8099/swagger-ui.html
+表单 -> 后台接口	
+
+
+4. h5中新增了哪些标签
+
+5. H5对表单拓展
+	input 
+		type：number ,date,email
+	progress
+
+6. 图片和背景图片有什么区别
+	地板砖 	背景
+	壁画 	图片
+
+本周作业：
+1. 网易严选首页架构的搭建（不做填充）
+	lianjia-jiegou
+		css
+		images
+		fonts
+		index.html
+2. 网易严选首页完善
+	lianjie-wanzheng
+		css
+		images
+		fonts
+		index.html
+
+3. 完整网站（小众） 
+
+
+==========作业===========
+1. 使用flex布局完成以下页面
+	https://m.weibo.cn/p/tabbar?containerid=101903&luicode=10000011&lfid=231583&page_type=tabbar
+2. 使用伸缩盒布局、定位布局完成后台页面的布局
+3. svn地址
+	将以上作业提交到svn上对应目录
+	svn://134.175.154.93/web1903/group0
+4. 团队协作一个完整的网页
+	axure
+	静态网页
+	动态网页（后台、前台）：
+		看点咨询
+		评价系统
+		刷单平台
+		...
+		自己开拓（*）
+
+	卓越班
+
+
+	某山市
+		高中
+
+			important!
+				教师子弟
+			考试
+				分数[权重]		优先级
+			姓名顺序
+				299 				order
+
+		考试
+
+
+	~~~~~梳理~~~~~
+	一、html
+		1. 语法
+			1) 注释
+			2) 元素
+			3) 开始标签，结束标签，子元素或者内容
+			4) 属性
+				4.1 语法
+				4.2 分类
+					核心属性
+						id
+						class
+						title
+						style
+					特有属性
+						alt href ...
+					拓展属性
+						data-*
+			5) 网页结构
+				html
+				head
+					视口不可见
+					meta
+					link
+					script
+					style
+				body
+					视口可见
+			6) 字符编码
+				meta声明、编辑器-浏览器（声明）
+		2 块元素
+			div , p,h1,h2,h3 ul,ol,dl,body,html
+		3 行元素
+			span a img i em strong
+		4 功能元素
+			table tbody tr td ...
+			form input textarea select
+	二、css3
+		1. 语法
+			html中如何使用css
+				style/link/<style>
+			注释
+
+			规则
+				选择器 {
+					规则
+				}
+		2. 选择器
+			1)核心
+			2)层次
+			3)属性
+			4)伪类
+			5)伪元素
+		3. 规则
+			1)字体
+				font-
+				网络字体（字体图标库）
+					iconfont
+					font-awesome
+			2)文本
+				text-
+				line-hight
+				color
+			3)列表
+				list
+			4)盒子
+				width
+				height
+				margin
+				padding
+				border
+				background
+				overflow
+			5)表格
+				border-collapse 
+		4. 布局
+			1) 浮动 (pc列布局)
+				全部浮动
+				一个浮动一个不浮动
+			2) 定位 (层次 z)
+				position
+			3) 伸缩盒（phone 列）
+				父 
+					display:flex
+					flex-direction
+					flex-wrap
+				子
+					flex-shrink
+					flex-grow
+					flex-basis
+					flex
+		5. 动画 animation
+			第三方库
+				animate.css
+			自己编程
+				1) 定义动画帧
+				2) 引用设置动画
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

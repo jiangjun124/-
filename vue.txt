@@ -1,0 +1,422 @@
+﻿Vue
+1. 介绍
+	是一套用于构建用户界面的渐进式框架
+	特点：
+		使用es6的语法进行vue的编程
+		虚拟dom操作
+		声明式渲染,响应式(零DOM操作)
+		使用指令来完成条件渲染、列表渲染
+		双向数据绑定
+		声明式的事件绑定
+
+2. 安装
+	1) script 	研究学习
+	2) 模块化 		项目开发
+		npm
+		yarn
+
+3. helloworld
+
+4. vue实例对象
+	let vm = new Vue({
+		el,
+		data:{message:"hello"},
+		methods
+	})
+
+	通过Vue的实例对象vm可以直接访问data中声明的变量以及methods中声明的方法
+		vm.message
+
+	在methods的方法中，this指向当前Vue实例对象也就是vm
+
+5. 生命周期
+	beforeCreate
+		vue实例创建完成，但没有初始化完成
+		this.message 	// undefined
+	created
+		vue实例初始化完成，此时可以通过vue的实例对象访问data中的变量以及methods中的方法。this.message	// "hello vue"
+	beforeMount
+		完成数据绑定之前的准备工作，重点完成dom对象的编译（html->dom对象），将dom对象绑定在this.$el 上
+		data中的变量还未绑定在dom对象
+	mounted
+		data中的变量绑定到了dom对象，并且dom渲染到了网页中
+	beforeUpdate
+		data中的变量的值发生了变化
+	updated
+		data中的变量的值的改变已经反映到了网页上
+	beforeDestory
+		当前vue实例在销毁之前
+	destoryed
+		当前vue实例已经销毁
+
+	1. 应用
+		生命周期的构造函数出现在Vue构造函数的参数对象中；生命周期钩子函数中的this指向当前的vue实例对象，这个特性与methods中方法是一致的。
+		、
+
+6. 模板语法
+	1) 双大括号
+		{{ message }}
+		{{ 1+1 }}
+		{{ foo() }}
+
+	2) 指令
+		v-html
+		v-on
+		v-bind
+		v-if v-else-if v-else
+			key
+		v-show
+		v-for
+			key
+			用于强制vue实现dom操作，如果不加key，vue为了考虑性能问题，往往不对dom进行操作而是直接改变dom中的值
+
+
+7. 事件机制
+	1) 事件绑定
+		v-on:eventType
+		<div v-on:click="handler"></div>
+		<div v-on:click="js表达式"></div>
+
+	2) v-on简写
+		<div @click="handler"></div>
+		<div @click="js表达式"></div>
+
+	3) 参数
+		<div @click="handler('a')"></div>
+		<div @click="handler(a)"></div>
+		<div @click="handler(表达式)"></div>
+	4) 事件对象
+		1. 事件处理函数中没有参数
+			<div @click="handler"></div>
+
+			methods:{
+				handler(event){
+					event就是事件对象
+				}
+			}
+		2. 事件处理函数中有参数
+			<div @click="handler(1,$event)"></div>
+
+			methods:{
+				handler(a,event){
+					a为1
+					event就是事件对象
+				}
+			}
+	5) 修饰符
+		1) 事件修饰符
+			eventType.prevent		阻止事件的默认行为
+			eventType.stop 			停止事件的冒泡
+			eventType.once 			仅绑定一次事件
+			eventType.self 			仅绑定一次事件
+			eventType.capture 	在事件捕获阶段执行事件处理函数
+		2) 按键修饰符
+			支持keypress、keyup、keydown
+	    .enter .tab
+	    .delete (捕获“删除”和“退格”键)
+	    .esc .space .up .down .left .right
+	  3) 系统修饰键
+	    .ctrl .alt .shift .meta
+	    @keypress.ctrl.enter
+	    主要应用在快捷操作上，例如ctrl+c ctrl+x
+
+8. 属性绑定
+	<input type="text" v-bind:value="常量">
+	<input type="text" :value="变量">
+	<input type="text" :value="表达式">
+
+
+9. style与class的绑定
+	1) class
+		<div class="current"></div>
+		<div v-bind:class="current"></div>
+		<div v-bind:class="对象"></div>
+			<li v-for="item in list"
+				:class="{basic:true,current:item.id === currentTab}" 
+				:key="item.id"
+				@click="changeTab(item.id)">
+				{{item.name}}
+			</li>
+		<div v-bind:class="数组"></div>
+			<li v-for="item in list"
+				:class="['basic',foo(item.id)]" 
+				:key="item.id"
+				@click="changeTab(item.id)">
+				{{item.name}}
+			</li>
+	2) style
+		<div style="background: pink;color: #fff">hello world</div>
+		<div :style="{background:'pink',color:'#fff'}">hello world</div>
+		<div :style="[{background:'pink'},aaa]">hello world</div>
+
+
+	懵懂 	->  (dom)穷酸(jquery)	-> 	财富自由（vue）
+
+10. 深入组件
+	1) 组件定义
+		将组件的信息配置到一个对象中，这个对象与Vue的参数基本一致
+		let config = {
+			template:`
+
+			`,
+			data(){			//保证每个vue实例都具有一个唯一的data对象
+				return {
+
+				}
+			},
+			props:["title"]	,	//期望从调用者哪里获取到的属性名称
+			methods:{
+
+			}
+		}
+
+
+	2) 组件的注册
+		全局注册：所有的vue实例都可以调用注册组件
+			Vue.component(组件名称,config)
+			组件名称一般为 x-x / xX
+				licy-alert	/ 	licyAlert
+
+		局部注册：只有当前vue实例才能调用注册的组件
+			new Vue({
+				el:"#app",
+				components:{
+					组件名称:config
+				}
+			})
+
+
+	3) 组件的调用
+		<licy-alert></licy-alert>
+
+	4) 父组件向子组件传值（属性作为参数进行传递）
+		props:["title","type"]
+
+		参数类型校验
+		props:{
+			a:Number,
+			b:{		// 期望b的类型为字符串，并且这个参数是必须的
+				type:String,
+				required:true	
+			},
+			c:{		// 期望c的类型为boolean，如果这个参数用户没有传递，默认值为true  
+				type:Boolean,
+				default:true
+			},
+			d:Function
+		}
+
+		静态传参值为字符串
+		如果想要传递非字符串类型的值，那么必须使用动态传参
+
+		单向数据流
+			父组件中data值的改变会影响到子组件中的相应数据的改变，但是子组件无法改变父组件的值
+
+	5) 事件传递 	（子->父)
+		当用户操作子组件的时候，希望父组件的值得到改变
+		父组件
+			<my-test @foo="handler"></my-test>
+		子组件
+			{
+				template:`
+					<button @click="change">按钮</button>
+				`,
+				methods:{
+					change(){
+						this.$emit("foo")
+					}
+				}
+			}
+		流程：点击按钮-> change() ->this.$emit("foo") ->handler()
+	
+	6) 插槽（模板作为参数传递）
+		1. 匿名插槽
+			<my-test>
+				<div>hello world</div>
+			</my-test>
+
+			let my-test = {
+				template:`
+					<div>
+						<h2>{{title}}</h2>
+						<div class="content">
+							<!--slot用于接受组件调用时传递的子内容-->
+							<slot></slot>
+						</div>
+					</div>
+				`
+			}
+		2. 具名插槽
+			<!--vue2.0-->
+			<my-test>
+				<template v-slot:a>
+					<div>hello world</div>
+				</template>
+				<template v-slot:b>
+					<div>address...</div>
+				</template>
+			</my-test>
+
+			<!--vue1.0-->
+			<my-test>
+					<div slot="a">hello world</div>
+					<div slot="b">address...</div>
+			</my-test>
+
+			let my-test = {
+				template:`
+					<div>
+						<h2>{{title}}</h2>
+						<div class="content">
+							<slot name="a"></slot>
+						</div>
+						<div class="footer">
+							<slot name="b"></slot>
+						</div>
+					</div>
+				`
+			}
+		3. 回调插槽（作用域插槽）
+			function foo(a,b,c,callback){
+				console.log(a);
+				console.log(b);
+				c.forEach(function(item){
+					callback(item)
+				})
+			}	
+
+			foo(
+				1,
+				2,
+				[
+					{a:1,b:"terry",c:12},
+					{a:2,b:"larry",c:23}
+				],function(item){
+					console.log(item.a);
+					console.log(item.b);
+					console.log(item.c);
+				}
+			)
+			foo(
+				3,
+				4,
+				[
+					{id:1,name:"terry"},
+					{id:2,name:"larry"}
+				],function(item){
+					console.log(item.id);
+					console.log(item.name);
+				}
+			)
+
+
+11. 脚手架 vue-cli
+	1) 作用
+		1. 创建并且初始化一个项目
+			mkdir app01
+			cd app01
+			npm init -y
+			npm install vue --save
+			npm install babel-preset-es2015 --save-dev
+			项目结构
+				.git
+				node_modules
+				build
+				src
+					aseets 			静态文件，图片
+					components	功能组件 my-alert
+					pages 			页面组件 Customer/Category
+					App.vue
+					main.js
+				package.json
+
+		2. 自动测试
+			脚手架会提供一个静态服务器，自动对源码进行构建，然后部署到服务器上，这些操作不需要开发者操作，是自动完成的
+		3. 自动打包
+			.vue 	-> html/css/js
+
+	2) 如何应用 @vue/cli
+		1. 安装nodejs
+			linux 	解压/opt ;配置环境变量
+			windows 直接安装即可（无脑安装）
+			> node -v
+		2. 全局安装cnpm
+			> npm install -g cnpm --registry=https://registry.npm.taobao.org
+			> cnpm install yarn -g
+		3. 全局安装 @vue/cli
+			> npm install @vue/cli -g
+			或
+			> cnpm install @vue/cli -g
+			或者
+			> yarn global add @vue/cli
+
+
+			测试：
+			> vue --version
+
+		4. 创建项目
+			> vue create app01
+
+			> cd app01
+			// 安装依赖
+			> cnpm install axios qs --save
+			> vue add element
+		5. 启动服务进行测试
+			> npm run serve
+
+
+12. yarn 
+	与npm类似，用于管理node中包
+
+	cnpm install xxx -g
+	=>
+	yarn global add xxx
+
+	npm install xxx --save
+	=>
+	yarn add xxx
+
+	npm install xxx --save-dev
+	=>
+	yarn add xxx --dev
+
+	npm uninstall xxx
+	=>
+	yarn remove xxx
+
+	npm install
+	=>
+	yarn
+
+
+
+12. 计算属性
+
+13. 监听器
+
+
+
+
+=====作业====
+ej家政系统的基础的增删改查
+	customer.html
+	category.html
+	product.html
+
+zhaopin系统的基础的增删改查
+	xxx.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
